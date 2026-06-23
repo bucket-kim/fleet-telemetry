@@ -1,0 +1,7 @@
+{
+    "name": "fleet-telemetry",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ]
+}
