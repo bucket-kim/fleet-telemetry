@@ -1,4 +1,3 @@
-import React from 'react'
 import GpsCoordinates from '../../components/GpsCoordinates/GpsCoordinates'
 import MapLocation from '../../components/MapLocation/MapLocation'
 import { LocationMapStyleContainer } from './LocationMapStyleContainer'

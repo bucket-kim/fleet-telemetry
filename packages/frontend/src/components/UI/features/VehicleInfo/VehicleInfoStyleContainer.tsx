@@ -9,12 +9,22 @@ export const VehicleInfoStyleContainer = styled.div`
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    /* padding-bottom: 0; */
     height: 100%;
 
     .info-header {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
+
+        .header-car-type {
+            display: flex;
+            gap: 1rem;
+            img {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
     }
 
     .info-content {
@@ -26,12 +36,20 @@ export const VehicleInfoStyleContainer = styled.div`
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: red;
+            border-bottom: 1px solid white;
+            padding: .75rem 0rem;
             .label {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
+
+                img {
+                    width: 2rem;
+                    height: 2rem;
+                }
             }
+        }:last-child {
+            border-bottom: none;
         }
     }
 `

@@ -13,9 +13,13 @@
     "@fleet/shared": "*",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "gsap": "^3.15.0",
+    "immer": "^11.1.8",
     "mapbox-gl": "^3.25.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-gauge-component": "^2.0.29",
     "react-map-gl": "^8.1.1",
     "styled-components": "^6.4.2",
     "three": "^0.184.0"
