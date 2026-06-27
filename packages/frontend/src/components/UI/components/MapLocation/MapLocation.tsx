@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, type FC } from 'react';
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, type MapRef } from 'react-map-gl/mapbox';
-import { useGlobalState } from '../../../../state/useGlobalState';
 import { useThemeValue } from '../../../../styles/theme';
+import type { TelemetryReading } from '@fleet/shared';
 
 const MAP_STYLES = {
     light: "mapbox://styles/mapbox/light-v11",
@@ -14,12 +14,11 @@ const MAP_STYLES = {
 // receive undefined coords and mapbox-gl would throw "Invalid LngLat (NaN, NaN)".
 const DEFAULT_CENTER = { latitude: 42.28, longitude: -83.72 };
 
-const MapLocation = () => {
-    const { latest } = useGlobalState((state) => {
-        return {
-            latest: state.latest
-        }
-    })
+interface MapLocationProps {
+    latest: TelemetryReading
+}
+
+const MapLocation: FC<MapLocationProps> = ({ latest }) => {
 
     const gps = useMemo(() => {
         return latest?.gps;

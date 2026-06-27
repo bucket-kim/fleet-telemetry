@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useGlobalState } from "../../state/useGlobalState";
 import type { VehicleInfoType } from "../../state/modules/DataModule/DataModuleTypes";
+import { API_BASE } from "../../const/variable";
 
 export const useVehicleInfo = (vehicleId: number) => {
   const { setVehicleInfo } = useGlobalState((state) => {
@@ -10,7 +11,7 @@ export const useVehicleInfo = (vehicleId: number) => {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:8080/vehicle/${vehicleId}`)
+    fetch(`${API_BASE}/vehicle/${vehicleId}`)
       .then((res) => res.json())
       .then((info: VehicleInfoType) => setVehicleInfo(info));
   }, [vehicleId]);

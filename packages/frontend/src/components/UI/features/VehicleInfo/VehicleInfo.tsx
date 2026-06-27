@@ -1,4 +1,3 @@
-import React from 'react'
 import { VehicleInfoStyleContainer } from './VehicleInfoStyleContainer'
 import { useGlobalState } from '../../../../state/useGlobalState'
 
@@ -42,7 +41,7 @@ const VehicleInfo = () => {
         {
             img: "/svg/clock.svg",
             labelTitle: "LAST UPDATE",
-            labelInfo: formatTime(latest?.timestamp / 1000)
+            labelInfo: latest?.timestamp != null ? formatTime(latest.timestamp / 1000) : "—"
         },
     ]
 

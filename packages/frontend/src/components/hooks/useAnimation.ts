@@ -1,14 +1,17 @@
 type Coord = { lat: number; lng: number };
+import type { TelemetryReading } from "@fleet/shared";
+import type { RefObject } from "react";
+import * as THREE from "three";
 
 const SPEED_FACTOR = 0.75;
 
 export const tireRotationAnimation = (
-  tireBR,
-  tireFR,
-  tireBL,
-  tireFL,
-  latest,
-  delta,
+  tireBR: RefObject<THREE.Group | null>,
+  tireFR: RefObject<THREE.Group | null>,
+  tireBL: RefObject<THREE.Group | null>,
+  tireFL: RefObject<THREE.Group | null>,
+  latest: TelemetryReading | null,
+  delta: number,
 ) => {
   const rotationSpeed = (latest?.speed ?? 0) * SPEED_FACTOR;
   if (!tireBR.current || !tireFR.current || !tireBL.current || !tireFL.current)

@@ -1,4 +1,4 @@
-import React, { useId, type FC } from 'react'
+import { useId, type FC } from 'react'
 
 interface GuageMeterProps {
     label: string;

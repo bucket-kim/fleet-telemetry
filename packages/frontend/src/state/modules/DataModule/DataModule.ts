@@ -2,7 +2,7 @@ import type { TelemetryReading } from "@fleet/shared";
 import type { GlobalStateApiType } from "../../GlobalStateTypes";
 import type { VehicleInfoType } from "./DataModuleTypes";
 
-export const DataModule = ({ set, get }: GlobalStateApiType) => {
+export const DataModule = ({ set }: GlobalStateApiType) => {
   return {
     readings: [],
     setReadings: (readings: TelemetryReading[]) => {

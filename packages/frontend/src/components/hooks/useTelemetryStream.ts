@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useGlobalState } from "../../state/useGlobalState";
 import type { TelemetryReading } from "@fleet/shared";
+import { WS_URL } from "../../const/variable";
 
 export const useTelemetryStream = () => {
   const { setLatest, setConnected } = useGlobalState((state) => {
@@ -11,7 +12,7 @@ export const useTelemetryStream = () => {
   });
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket(`${WS_URL}`);
 
     ws.onopen = () => {
       setConnected(true);

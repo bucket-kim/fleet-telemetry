@@ -1,11 +1,32 @@
-import React from 'react'
+import type { TelemetryReading } from '@fleet/shared'
+import { useMemo, type FC } from 'react'
+import { GpsCoordinatesStyleContainer } from './GpsCoordinatesStyleContainer'
 
-const GpsCoordinates = () => {
+interface MapLocationProps {
+    latest: TelemetryReading
+}
+
+
+const GpsCoordinates: FC<MapLocationProps> = ({ latest }) => {
+
+    const coord = useMemo(() => {
+        return {
+            x: latest?.gps.latitude,
+            y: latest?.gps.longitude
+        }
+    }, [latest])
+
     return (
-        <div>
-            <p>x: x</p>
-            <p>y: y</p>
-        </div>
+        <GpsCoordinatesStyleContainer>
+            <div className="header">
+                <h1>GPS Coordinates: </h1>
+            </div>
+            <div className="content">
+
+                <p>x: {(coord.x)?.toFixed(2)}</p>
+                <p>y: {(coord.y)?.toFixed(2)}</p>
+            </div>
+        </GpsCoordinatesStyleContainer>
     )
 }
 
