@@ -1,5 +1,5 @@
 import { Environment } from '@react-three/drei'
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 
 const Light = () => {
     return (

@@ -4,7 +4,9 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "tsx watch src/index.ts"
+        "dev": "tsx watch src/server.ts",
+        "start": "tsx src/server.ts",
+        "build": "echo 'no build step needed'"
     },
     "dependencies": {
         "@azure/cosmos": "^4.9.3",
@@ -12,6 +14,7 @@
         "cors": "^2.8.6",
         "dotenv": "^17.4.2",
         "express": "^5.2.1",
+        "tsx": "^4.x.x",
         "ws": "^8.21.0"
     },
     "devDependencies": {
