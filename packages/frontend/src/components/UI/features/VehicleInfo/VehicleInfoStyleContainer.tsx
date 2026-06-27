@@ -1,17 +1,20 @@
 import styled from "styled-components";
+import { t } from "../../../../styles/tokens";
 
 export const VehicleInfoStyleContainer = styled.div`
     box-sizing: border-box;
-    background-color: #7a8392;
+    background-color: ${t.surface};
     border-radius: 0.5rem;
-    border: 1px solid black;
+    border: 1px solid ${t.border};
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
     /* padding-bottom: 0; */
     height: 100%;
-
+    /* color: ${t.text}; */
+    color: ${t.textMuted};
+    
     .info-header {
         display: flex;
         align-items: center;

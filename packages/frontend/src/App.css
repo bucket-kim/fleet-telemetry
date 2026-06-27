@@ -1,52 +1,129 @@
-:root {
-  --text: #000000;
-  --text-h: #000000;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* ============================================================================
+   Theme tokens
+   - :root                     => light mode (default)
+   - :root[data-theme="dark"]  => dark mode
+   Toggle by setting document.documentElement.dataset.theme = 'light' | 'dark'
+   (see src/styles/theme.ts). Consume anywhere via var(--token) or src/styles/tokens.ts.
+   ============================================================================ */
 
+:root {
+  color-scheme: light;
+
+  /* surfaces */
+  --bg: #eef1f6; /* page background */
+  --surface: #ffffff; /* cards / panels */
+  --surface-2: #f4f6fa; /* nested wells, inputs, gauge area */
+  --surface-3: #e9edf3; /* hover */
+  --sidebar-bg: #ffffff;
+
+  /* text */
+  --text: #1f2937; /* body */
+  --text-heading: #0b1220; /* headings / strong numerics */
+  --text-muted: #8a94a6; /* labels / secondary */
+
+  /* borders & elevation */
+  --border: #e6e8ee;
+  --border-strong: #d4d9e2;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
+
+  /* brand / accent (blue) */
+  --accent: #2f6bff;
+  --accent-strong: #1d4ed8;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e7efff; /* light-blue active nav background */
+
+  /* status */
+  --success: #16a34a;
+  --success-soft: #dcfce7;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #2f6bff;
+
+  /* navigation */
+  --nav-fg: #64748b;
+  --nav-active-bg: var(--accent-soft);
+  --nav-active-fg: var(--accent);
+
+  /* data viz / gauges */
+  --gauge-track: rgba(15, 23, 42, 0.1);
+  --gauge-needle: #475569;
+  --speed: #2f6bff;
+  --soc: #22c55e;
+  --range: #10b981;
+  --rpm-start: #f59e0b;
+  --rpm-end: #ef4444;
+  --route: #2f6bff;
+
+  /* typography */
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
+}
 
-  font: 18px/145% var(--sans);
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* surfaces */
+  --bg: #05070c;
+  --surface: #0e1622;
+  --surface-2: #121b29;
+  --surface-3: #18222f;
+  --sidebar-bg: #060910;
+
+  /* text */
+  --text: #cbd5e1;
+  --text-heading: #f8fafc;
+  --text-muted: #7e8a9e;
+
+  /* borders & elevation */
+  --border: #1b2433;
+  --border-strong: #26344a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 32px rgba(0, 0, 0, 0.55);
+
+  /* brand / accent (blue) */
+  --accent: #3b82f6;
+  --accent-strong: #2f6bff;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(59, 130, 246, 0.16);
+
+  /* status */
+  --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.16);
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+
+  /* navigation — active item is solid blue in dark mode */
+  --nav-fg: #8a94a6;
+  --nav-active-bg: var(--accent);
+  --nav-active-fg: #ffffff;
+
+  /* data viz / gauges */
+  --gauge-track: rgba(255, 255, 255, 0.1);
+  --gauge-needle: #ffffff;
+  --speed: #3b82f6;
+  --soc: #22c55e;
+  --range: #34d399;
+  --rpm-start: #f59e0b;
+  --rpm-end: #ef4444;
+  --route: #3b82f6;
+}
+
+html {
+  font: 16px/1.45 var(--sans);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #ffffff;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
 body {
   margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 h1,

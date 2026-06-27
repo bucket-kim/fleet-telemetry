@@ -1,15 +1,18 @@
 import styled from "styled-components";
+import { t } from "../../../../styles/tokens";
 
 export const MetricGuageCardStyleContainer = styled.div`
 width: 100%;
 height: 100%;
-border: 1px solid black;
+border: 1px solid ${t.border};
 border-radius: 0.5rem;
 display: flex;
 flex-direction: column;
 justify-content: space-between;
 /* gap: 1rem; */
-background-color: #7a8392;
+background-color: ${t.surface};
+color: ${t.text};
+box-shadow: ${t.shadow};
 box-sizing: border-box;
 padding: 1rem;
 
@@ -17,6 +20,7 @@ padding: 1rem;
     display: flex;
     align-items: center;
     gap: 1rem;
+    color: ${t.textMuted};
     img {
         width: 2rem;
         height: 2rem;
@@ -30,29 +34,27 @@ padding: 1rem;
         gap: 0.25rem;
         align-items: center;
         justify-content: center;
+        color: ${t.textMuted};
 
         p {
             font-size: 2rem;
             font-weight: 700;
+            color: ${t.textHeading};
         }
-    
+
     }
     
     .card-guage {
         margin: auto;
         width: 80%;
-
-        /* The SVG has a fixed viewBox, so height follows width automatically —
-           no library, no ResizeObserver, no flicker, no !important needed. */
         .gauge-svg {
             display: block;
             width: 100%;
             height: auto;
         }
-
         .gauge-track {
             fill: none;
-            stroke: rgba(0, 0, 0, 0.2);
+            stroke: ${t.gaugeTrack};
             stroke-width: 12;
             stroke-linecap: round;
         }
@@ -71,7 +73,7 @@ padding: 1rem;
 
         .gauge-needle polygon,
         .gauge-hub {
-            fill: #ffffff;
+            fill: ${t.gaugeNeedle};
         }
 
         .card-metrics {

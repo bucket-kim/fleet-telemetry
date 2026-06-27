@@ -15,6 +15,8 @@ interface MetricGuageCardProps {
 
 const MetricGuageCard: FC<MetricGuageCardProps> = ({ icon, label, value, unit, min, max, colorA, colorB }) => {
 
+    const safeValue = Number.isFinite(value) ? value : min;
+
     return (
         <MetricGuageCardStyleContainer>
             <div className="card-header">
@@ -23,7 +25,7 @@ const MetricGuageCard: FC<MetricGuageCardProps> = ({ icon, label, value, unit, m
             </div>
             <div className="card-content">
                 <div className="card-unit">
-                    <p>{value}</p>
+                    <p>{safeValue}</p>
                     <span>{unit}</span>
                 </div>
                 <div className="card-guage">

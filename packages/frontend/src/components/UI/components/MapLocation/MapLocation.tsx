@@ -2,6 +2,12 @@ import { useEffect, useMemo, useRef } from 'react';
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { Marker, type MapRef } from 'react-map-gl/mapbox';
 import { useGlobalState } from '../../../../state/useGlobalState';
+import { useThemeValue } from '../../../../styles/theme';
+
+const MAP_STYLES = {
+    light: "mapbox://styles/mapbox/light-v11",
+    dark: "mapbox://styles/mapbox/dark-v11",
+} as const;
 
 // Center shown until the first telemetry reading arrives over the WebSocket.
 // `latest` is null on mount/reload, so without this the map (and Marker) would
@@ -18,7 +24,7 @@ const MapLocation = () => {
     const gps = useMemo(() => {
         return latest?.gps;
     }, [latest?.gps])
-
+    const theme = useThemeValue();
     const mapRef = useRef<MapRef>(null);
 
     useEffect(() => {
@@ -38,7 +44,7 @@ const MapLocation = () => {
             }}
             attributionControl={false}
             logoPosition='bottom-left'
-            mapStyle="mapbox://styles/mapbox/dark-v11"
+            mapStyle={MAP_STYLES[theme]}
             style={{ width: "100%", height: "100%" }}
         >
             {gps && <Marker latitude={gps.latitude} longitude={gps.longitude} />}
