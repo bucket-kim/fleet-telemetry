@@ -8,7 +8,7 @@ border: 1px solid ${t.border};
 border-radius: 0.5rem;
 display: flex;
 flex-direction: column;
-/* justify-content: space-between; */
+justify-content: space-between;
 /* gap: 1rem; */
 background-color: ${t.surface};
 color: ${t.text};
