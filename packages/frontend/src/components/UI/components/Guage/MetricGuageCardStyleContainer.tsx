@@ -8,7 +8,7 @@ border: 1px solid ${t.border};
 border-radius: 0.5rem;
 display: flex;
 flex-direction: column;
-justify-content: space-between;
+/* justify-content: space-between; */
 /* gap: 1rem; */
 background-color: ${t.surface};
 color: ${t.text};
@@ -85,5 +85,42 @@ padding: 1rem;
     }
     
 }
-    
+@media screen and (orientation: landscape) and (max-width: 932px) {
+    padding: 0.5rem;
+   .card-header {
+    img {
+        height: 1rem;
+        width: 1rem;
+    }
+    span {
+        font-size: 0.5rem;
+    }
+}
+.card-content {
+    .card-unit {
+        p {
+            font-size: 1.2rem;
+        }
+        span {
+            font-size: 0.5rem;
+        }
+    }
+    .card-guage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .gauge-svg {
+            width: 80%;
+        }
+        .card-metrics {
+            width: 80%;
+            span {
+                font-size: 0.5rem;
+            }
+        }
+    }
+   }
+}
+
 `

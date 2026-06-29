@@ -10,7 +10,7 @@ export const DashboardLayoutStyleContainer = styled.div`
         flex: 1;     
         min-height: 0;  
         display: grid;
-        grid-template-rows: 2fr 1fr;
+        grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);  
         box-sizing: border-box;
         padding: 2rem;
         gap: 0.5rem;
@@ -18,13 +18,21 @@ export const DashboardLayoutStyleContainer = styled.div`
             display: grid;
             grid-template-columns: 2.025fr 1fr;
             gap: 0.5rem;
+            box-sizing: border-box;
             .Three-D {
                 border-radius: 0.5rem;
                 background-color: blue;
             }
         }
         .lower-container{
-            display: grid;
+            position: relative;
+            height: 100%;
+            box-sizing: border-box;
+        }
+    }
+    @media screen and (orientation: landscape) and (max-width: 932px) {
+        .layout-container {
+            padding: 1rem;
         }
     }
 `
