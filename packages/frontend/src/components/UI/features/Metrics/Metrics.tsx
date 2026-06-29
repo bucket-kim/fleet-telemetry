@@ -32,7 +32,9 @@ const Metrics = () => {
         <MetricGuageCard icon={speedometerImg} label={"RPM"} value={latest?.rpm ?? 0} unit={"rpm"} min={0} max={8000} colorA='#e17000' colorB='#ffd60b' />
 
       )}
-      <VehicleInfo />
+      <div className="vehicleInfo">
+        <VehicleInfo />
+      </div>
 
     </MetricsStyleContainer>
   )

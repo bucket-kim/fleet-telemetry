@@ -28,6 +28,22 @@ export const GpsCoordinatesStyleContainer = styled.div`
             font-weight: 600;
         }
     }
+
+    @media screen and (orientation: portrait) and (max-width: 440px) {
+               gap: 0.1rem;
+        .header {
+    h1 {
+        font-size: 0.8rem;
+    }
+}
+    .content {
+        display: flex;
+        p {
+            font-size: 0.8rem;
+        }
+    }
+    }
+
     @media screen and (orientation: landscape) and (max-width: 932px) {
             gap: 0.1rem;
         .header {

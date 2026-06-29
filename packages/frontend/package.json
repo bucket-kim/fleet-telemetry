@@ -20,6 +20,7 @@
     "immer": "^11.1.8",
     "mapbox-gl": "^3.25.0",
     "react": "^19.2.6",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^19.2.6",
     "react-gauge-component": "^2.0.29",
     "react-map-gl": "^8.1.1",

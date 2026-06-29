@@ -46,7 +46,7 @@ const VehicleInfo = () => {
     ]
 
     return (
-        <VehicleInfoStyleContainer>
+        <VehicleInfoStyleContainer className="vehicleInfo">
             <div className="info-header">
                 <div className='header-car-type'>
                     <img src={carImg} alt="header-img" />

@@ -85,8 +85,49 @@ padding: 1rem;
     }
     
 }
-@media screen and (orientation: landscape) and (max-width: 932px) {
+
+ @media screen and (orientation: portrait) and (max-width: 440px) {
+   padding: 0.5rem;
+    /* justify-content: center; */
+   .card-header {
+    img {
+        height: 1rem;
+        width: 1rem;
+    }
+    span {
+        font-size: 0.5rem;
+    }
+}
+.card-content {
+    .card-unit {
+        p {
+            font-size: 1.2rem;
+        }
+        span {
+            font-size: 0.5rem;
+        }
+    }
+    .card-guage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .gauge-svg {
+            width: 80%;
+        }
+        .card-metrics {
+            width: 80%;
+            span {
+                font-size: 0.5rem;
+            }
+        }
+    }
+   }
+}
+
+@media screen and (orientation: landscape) and (max-width: 932px)  {
     padding: 0.5rem;
+    /* justify-content: center; */
    .card-header {
     img {
         height: 1rem;

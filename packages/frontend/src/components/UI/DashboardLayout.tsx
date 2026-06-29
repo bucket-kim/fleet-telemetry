@@ -36,10 +36,8 @@ const DashboardLayout = () => {
                     <R3F />
                     <LocationMap />
                 </div>
-                <div className="lower-container">
+                <Metrics />
 
-                    <Metrics />
-                </div>
             </div>
         </DashboardLayoutStyleContainer>
     )
