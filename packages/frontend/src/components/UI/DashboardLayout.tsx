@@ -27,7 +27,7 @@ const DashboardLayout = () => {
         <DashboardLayoutStyleContainer>
             <AnimatePresence>
                 {isLoading && (
-                    <Loader isLoading={isLoading} key={'loader'} />
+                    <Loader key={'loader'} />
                 )}
             </AnimatePresence>
             {/* <Loader isLoading={isLoading} key={'loader'} /> */}
