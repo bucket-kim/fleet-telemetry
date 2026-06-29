@@ -11,7 +11,7 @@ export const VehicleInfoStyleContainer = styled.div`
     gap: 1rem;
     padding: 1rem;
     /* padding-bottom: 0; */
-    height: fit-content;
+    height: 100%;
     /* color: ${t.text}; */
     color: ${t.textMuted};
     
