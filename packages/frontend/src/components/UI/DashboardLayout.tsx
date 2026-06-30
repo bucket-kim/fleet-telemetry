@@ -18,10 +18,11 @@ const DashboardLayout = () => {
     useVehicleInfo(10)
     useTelemetryStream()
 
-    const { latest, connected } = useGlobalState((state) => {
+    const { latest, connected, isOffline } = useGlobalState((state) => {
         return {
             latest: state.latest,
             connected: state.connected,
+            isOffline: state.isOffline,
         }
     })
 
@@ -36,7 +37,11 @@ const DashboardLayout = () => {
             </AnimatePresence>
             <ConnectionStatus />
             <Notifications />
-            <Reconnect />
+            <AnimatePresence>
+                {!connected && isOffline && (
+                    <Reconnect />
+                )}
+            </AnimatePresence>
             {/* main content containers */}
             <Header />
             <div className="layout-container">
