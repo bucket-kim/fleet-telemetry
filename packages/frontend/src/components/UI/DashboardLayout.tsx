@@ -37,8 +37,8 @@ const DashboardLayout = () => {
             <Notifications />
 
             {/* main content containers */}
+            <Header />
             <div className="layout-container">
-                <Header />
                 <div className='upper-container'>
                     <R3F />
                     <LocationMap />

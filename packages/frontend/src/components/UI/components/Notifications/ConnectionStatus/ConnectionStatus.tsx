@@ -13,17 +13,20 @@ const ConnectionStatus = () => {
         }
     })
 
-    const lastReadingTime = useRef<number>(0)
+    const lastReadingTime = useRef<number>(0);
+    const hasReceivedData = useRef(false);
 
     useEffect(() => {
         if (latest) {
             lastReadingTime.current = Date.now()
+            hasReceivedData.current = true
             if (isOffline) setIsOffline(false);
         }
     }, [latest, isOffline, setIsOffline])
 
     useEffect(() => {
         const interval = setInterval(() => {
+            if (!hasReceivedData.current) return;
             const elapsed = Date.now() - lastReadingTime.current;
             if (elapsed > 5000) {
                 setIsOffline(true)

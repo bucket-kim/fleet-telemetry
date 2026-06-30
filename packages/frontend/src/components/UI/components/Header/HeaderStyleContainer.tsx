@@ -5,6 +5,7 @@ export const HeaderStyleContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
+    padding: 1rem 0rem;
     .left-header {
         text-transform: uppercase;
         line-height: 120%;
@@ -66,6 +67,8 @@ export const HeaderStyleContainer = styled.div`
      }
 
      @media screen and (orientation: landscape) and (max-width: 932px) {
+           padding: 0rem;
+           padding-bottom: 0.5rem;
            .left-header {
             line-height: 70%;
         h3 {
