@@ -9,6 +9,8 @@ import { useGlobalState } from '../../state/useGlobalState'
 import Loader from './components/Loader/Loader'
 import { AnimatePresence } from 'framer-motion'
 import Notifications from './components/Notifications/Notifications'
+import ConnectionStatus from './components/Notifications/ConnectionStatus/ConnectionStatus'
+import Header from './components/Header/Header'
 
 const DashboardLayout = () => {
     useReadingHistory(10)
@@ -26,13 +28,17 @@ const DashboardLayout = () => {
 
     return (
         <DashboardLayoutStyleContainer>
-            <Notifications />
             <AnimatePresence>
                 {isLoading && (
                     <Loader key={'loader'} />
                 )}
             </AnimatePresence>
+            <ConnectionStatus />
+            <Notifications />
+
+            {/* main content containers */}
             <div className="layout-container">
+                <Header />
                 <div className='upper-container'>
                     <R3F />
                     <LocationMap />

@@ -23,5 +23,10 @@ export const DataModule = ({ set }: GlobalStateApiType) => {
     setConnected: (connected: boolean) => {
       set({ connected: connected });
     },
+
+    isOffline: false,
+    setIsOffline: (isOffline: boolean) => {
+      set({ isOffline: isOffline });
+    },
   };
 };

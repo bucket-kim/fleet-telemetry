@@ -18,4 +18,7 @@ export interface DataModuletypes {
 
   connected: boolean;
   setConnected: (connected: boolean) => void;
+
+  isOffline: boolean;
+  setIsOffline: (isOffline: boolean) => void;
 }

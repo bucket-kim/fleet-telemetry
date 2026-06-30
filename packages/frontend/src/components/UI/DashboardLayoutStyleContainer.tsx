@@ -14,10 +14,11 @@ export const DashboardLayoutStyleContainer = styled.div`
         flex: 1;     
         min-height: 0;  
         display: grid;
-        grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);  
+        grid-template-rows: minmax(0, .3fr) minmax(0, 3fr) minmax(0, 2fr);  
         box-sizing: border-box;
-        gap: 0.5rem;
-        padding: 2rem;
+        gap: 1rem;
+        padding: 2rem 1rem;
+        padding-top: 0.5rem;
         .upper-container{
             display: grid;
             grid-template-columns: 2.025fr 1fr;
@@ -33,6 +34,7 @@ export const DashboardLayoutStyleContainer = styled.div`
     @media screen and (orientation: portrait) and (max-width: 440px) {
         .layout-container {
             padding: 1rem;
+            padding-top: 0rem;
                 .upper-container{
                        grid-template-columns: none;
                        grid-template-rows: 1fr 1fr;

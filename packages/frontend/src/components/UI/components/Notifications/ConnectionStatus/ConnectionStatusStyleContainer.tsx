@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { t } from "../../../../../styles/tokens";
+import { motion } from "framer-motion";
 
-export const OnlineStatusStyleContainer = styled.div`
+export const ConnectionStatusStyleContainer = styled(motion.div)`
 position: fixed;
 top: 0;
 left: 0;

@@ -14,8 +14,6 @@ const Notifications = () => {
     const notificationRef = useRef<HTMLDivElement>(null);
     const prevAlertIds = useRef<Set<string>>(new Set())
     const [toasts, setToasts] = useState<Alert[]>([])
-    // const [isOffline, setIsOffline] = useState(false)
-    // const lastReadingTime = useRef<number>(0);
 
     const getAlert = (latest: TelemetryReading | null): Alert[] => {
         if (!latest) return [];
@@ -52,25 +50,6 @@ const Notifications = () => {
         return alerts
     }
 
-    // useEffect(() => {
-    //     if (latest) {
-    //         lastReadingTime.current = Date.now()
-    //         setIsOffline(false);
-    //     }
-    // }, [latest])
-
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         const elapsed = Date.now() - lastReadingTime.current;
-    //         if (elapsed > 5000) {
-    //             setIsOffline(true)
-    //         }
-    //     }, 1000)
-
-    //     return () => clearInterval(interval)
-    // }, [])
-
     useEffect(() => {
         const currentAlerts = getAlert(latest)
         const currendIds = new Set(currentAlerts.map(a => a.id));
@@ -91,16 +70,6 @@ const Notifications = () => {
 
     return (
         <Fragment>
-            {/* {isOffline ? (
-                <OnlineStatus />
-            ) : (
-
-                <NotificationStyleContainer ref={notificationRef}>
-                    {toasts.map((toast) => (
-                        <ToastItem alert={toast} key={toast.id} />
-                    ))}
-                </NotificationStyleContainer>
-            )} */}
 
             <NotificationStyleContainer ref={notificationRef}>
                 {toasts.map((toast) => (
