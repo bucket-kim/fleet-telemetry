@@ -11,6 +11,7 @@ import { AnimatePresence } from 'framer-motion'
 import Notifications from './components/Notifications/Notifications'
 import ConnectionStatus from './components/Notifications/ConnectionStatus/ConnectionStatus'
 import Header from './components/Header/Header'
+import Reconnect from './components/Notifications/Reconnect/Reconnect'
 
 const DashboardLayout = () => {
     useReadingHistory(10)
@@ -35,7 +36,7 @@ const DashboardLayout = () => {
             </AnimatePresence>
             <ConnectionStatus />
             <Notifications />
-
+            <Reconnect />
             {/* main content containers */}
             <Header />
             <div className="layout-container">

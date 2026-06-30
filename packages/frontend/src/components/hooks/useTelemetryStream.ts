@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useGlobalState } from "../../state/useGlobalState";
 import type { TelemetryReading } from "@fleet/shared";
 import { WS_URL } from "../../const/variable";
@@ -11,23 +11,44 @@ export const useTelemetryStream = () => {
     };
   });
 
+  const reconnectAttempt = useRef(0);
+  const reconnectTimer = useRef<number | null>(null);
+
   useEffect(() => {
-    const ws = new WebSocket(`${WS_URL}`);
+    let ws: WebSocket;
+    let isUnmounting = false;
 
-    ws.onopen = () => {
-      setConnected(true);
+    const connect = () => {
+      ws = new WebSocket(`${WS_URL}`);
+
+      ws.onopen = () => {
+        setConnected(true);
+        reconnectAttempt.current = 0;
+      };
+
+      ws.onmessage = (event) => {
+        const readings: TelemetryReading = JSON.parse(event.data);
+        setLatest(readings);
+      };
+
+      ws.onclose = () => {
+        setConnected(false);
+        if (isUnmounting) return;
+
+        const delay = Math.min(1000 * 2 ** reconnectAttempt.current, 30000);
+        reconnectAttempt.current += 1;
+        reconnectTimer.current = window.setTimeout(connect, delay);
+
+        console.log("WS closed");
+      };
     };
 
-    ws.onmessage = (event) => {
-      const readings: TelemetryReading = JSON.parse(event.data);
-      setLatest(readings);
-    };
+    connect();
 
-    ws.onclose = () => {
-      setConnected(false);
-      console.log("WS closed");
+    return () => {
+      isUnmounting = true;
+      if (reconnectTimer.current) clearTimeout(reconnectTimer.current);
+      ws.close();
     };
-
-    return () => ws.close();
   }, []);
 };
