@@ -1,4 +1,3 @@
-import React from 'react'
 import { OnlineStatusStyleContainer } from './OnlineStatusStyleContainer'
 
 const OnlineStatus = () => {
