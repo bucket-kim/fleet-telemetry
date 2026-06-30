@@ -15,6 +15,12 @@ export interface TelemetryReading {
   };
 }
 
+export type Alert = {
+  id: string;
+  severity: "warning" | "critical";
+  message: string;
+};
+
 export type GLTFResult = GLTF & {
   nodes: {
     Cube002: THREE.Mesh;

@@ -23,6 +23,7 @@ const Metrics = () => {
 
   return (
     <MetricsStyleContainer>
+
       <MetricGuageCard icon={speedometerImg} label={"SPEED"} value={latest?.speed ?? 0} unit={"km/h"} min={0} max={240} colorA='#3D86ED' colorB='#68a7f3' />
       <MetricGuageCard icon={batterImg} label={"SoC"} value={latest?.socPercent != null ? Math.round(latest.socPercent * 100) / 100 : 0}
         unit={"%"} min={0} max={100} colorA='#1f9a4c' colorB='#32db81' />
