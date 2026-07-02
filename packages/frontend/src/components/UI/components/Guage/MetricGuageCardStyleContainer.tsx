@@ -46,7 +46,7 @@ padding: 1rem;
     
     .card-guage {
         margin: auto;
-        width: 80%;
+        width: 68%;
         .gauge-svg {
             display: block;
             width: 100%;
@@ -126,24 +126,26 @@ padding: 1rem;
 }
 
 @media screen and (orientation: landscape) and (max-width: 932px)  {
-    padding: 0.5rem;
+    padding: 0.25rem;
     /* justify-content: center; */
    .card-header {
+    gap: .5rem;
     img {
-        height: 1rem;
-        width: 1rem;
+         height: 0.5rem;
+        width: 0.5rem;
     }
     span {
-        font-size: 0.5rem;
+        font-size: 0.4rem;
     }
 }
 .card-content {
     .card-unit {
+        gap: .1rem;
         p {
-            font-size: 1.2rem;
+            font-size: .75rem;
         }
         span {
-            font-size: 0.5rem;
+            font-size: 0.35rem;
         }
     }
     .card-guage {
@@ -152,12 +154,12 @@ padding: 1rem;
         align-items: center;
         justify-content: center;
         .gauge-svg {
-            width: 80%;
+            width: 50%;
         }
         .card-metrics {
-            width: 80%;
+            width: 50%;
             span {
-                font-size: 0.5rem;
+                font-size: 0.35rem;
             }
         }
     }

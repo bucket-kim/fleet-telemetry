@@ -17,11 +17,12 @@ export const VehicleInfoStyleContainer = styled.div`
     
     .info-header {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 2rem;
 
         .header-car-type {
             display: flex;
+            align-items: flex-start;
             gap: 1rem;
             img {
                 width: 2rem;
@@ -29,6 +30,8 @@ export const VehicleInfoStyleContainer = styled.div`
             }
         }
         .header-info{
+            display: flex;
+            flex-direction: column;
             p {
                     font-size: 1rem;
             }
@@ -105,22 +108,22 @@ export const VehicleInfoStyleContainer = styled.div`
 
     @media screen and (orientation: landscape) and (max-width: 932px) {
           span, p {
-                    font-size: 0.5rem;
+                    font-size: 0.35rem;
             }
-            gap: 0.2rem;
-            padding: 0.5rem;
+            gap: 0rem;
+            padding: 0.25rem;
    .info-header {
-        gap: 2rem;
-
+        gap: 1rem;
         .header-car-type {
+            gap: .5rem;
             img {
-                width: 1rem;
-                height: 1rem;
+                width: .6rem;
+                height: .6rem;
             }
         }
         .header-info {
           p {
-                    font-size: 0.5rem;
+                font-size: 0.35rem;
             }
         }
     }
@@ -134,8 +137,8 @@ export const VehicleInfoStyleContainer = styled.div`
                     font-size: 0.5rem;
                 }
                 img {
-                    width: 1rem;
-                    height: 1rem;
+                    width: .6rem;
+                    height: .6rem;
                 }
             }
         }

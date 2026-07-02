@@ -12,21 +12,28 @@ import Notifications from './components/Notifications/Notifications'
 import ConnectionStatus from './components/Notifications/ConnectionStatus/ConnectionStatus'
 import Header from './components/Header/Header'
 import Reconnect from './components/Notifications/Reconnect/Reconnect'
+import SpeedChart from './components/SpeedChart/SpeedChart'
+import { isMobile, useMobileOrientation } from 'react-device-detect'
+import { Fragment } from 'react/jsx-runtime'
 
 const DashboardLayout = () => {
     useReadingHistory(10)
     useVehicleInfo(10)
     useTelemetryStream()
 
-    const { latest, connected, isOffline } = useGlobalState((state) => {
+    const { isPortrait } = useMobileOrientation();
+
+    const { latest, connected, readings } = useGlobalState((state) => {
         return {
             latest: state.latest,
             connected: state.connected,
-            isOffline: state.isOffline,
+            readings: state.readings,
         }
     })
 
-    const isLoading = !latest || !connected
+
+    const isLoading = !latest;
+    const showReconnecting = !connected && latest;
 
     return (
         <DashboardLayoutStyleContainer>
@@ -34,14 +41,12 @@ const DashboardLayout = () => {
                 {isLoading && (
                     <Loader key={'loader'} />
                 )}
-            </AnimatePresence>
-            <ConnectionStatus />
-            <Notifications />
-            <AnimatePresence>
-                {!connected && isOffline && (
+                {showReconnecting && (
                     <Reconnect />
                 )}
             </AnimatePresence>
+            <ConnectionStatus />
+            <Notifications />
             {/* main content containers */}
             <Header />
             <div className="layout-container">
@@ -49,7 +54,19 @@ const DashboardLayout = () => {
                     <R3F />
                     <LocationMap />
                 </div>
-                <Metrics />
+                {isMobile && isPortrait ? (
+                    <Fragment>
+                        <SpeedChart readings={readings} />
+                        <Metrics />
+                    </Fragment>
+                ) : (
+                    <Fragment>
+
+                        <Metrics />
+                        <SpeedChart readings={readings} />
+                    </Fragment>
+
+                )}
 
             </div>
         </DashboardLayoutStyleContainer>

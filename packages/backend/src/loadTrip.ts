@@ -28,6 +28,7 @@ export const loadReadings = (): TelemetryReading[] => {
           : null;
 
       return {
+        dayNum: parseFloat(c[0]),
         vehicleId: parseFloat(c[1]),
         trip: parseFloat(c[2]),
         timestamp: parseFloat(c[3]),
@@ -41,5 +42,7 @@ export const loadReadings = (): TelemetryReading[] => {
         },
       };
     })
-    .filter((r) => r.vehicleId === 10);
+    .filter(
+      (r) => r.vehicleId === 10 && r.dayNum === 15.854019787 && r.trip === 1625,
+    );
 };

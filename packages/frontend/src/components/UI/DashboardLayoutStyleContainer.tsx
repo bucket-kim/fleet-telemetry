@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { t } from "../../styles/tokens";
 
 export const DashboardLayoutStyleContainer = styled.div`
     position: fixed;
@@ -14,11 +15,11 @@ export const DashboardLayoutStyleContainer = styled.div`
     .layout-container {
         border: 1px "#EEF0F6" solid;
         border-radius: 1rem;
-        background: linear-gradient(180deg,rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0) 100%);
-        flex: 1;     
+        background: linear-gradient(180deg, ${t.whiteBG} 0%, rgba(0, 0, 0, 0) 100%);
         min-height: 0;  
         display: grid;
-        grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);  
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);  
         box-sizing: border-box;
         gap: 1rem;
         padding: 1rem ;
@@ -36,7 +37,7 @@ export const DashboardLayoutStyleContainer = styled.div`
 
     @media screen and (orientation: portrait) and (max-width: 440px) {
         .layout-container {
-            padding: 1rem;
+            padding: 0.5rem;
             padding-top: 0rem;
                 .upper-container{
                        grid-template-columns: none;
@@ -45,8 +46,12 @@ export const DashboardLayoutStyleContainer = styled.div`
         }
     }
 
-    @media screen and (orientation: landscape) and (max-width: 932px) {
-        height: calc(100dvh - 3.5rem);
-       
+    @media screen and (orientation: landscape) and (max-width: 940px) {
+        height: calc(100dvh);
+        padding: 0.5rem;
+       .layout-container{
+            gap: .25rem;
+            padding: .5rem;
+       }
     }
 `

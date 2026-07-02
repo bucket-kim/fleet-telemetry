@@ -2,6 +2,7 @@ import * as THREE from "three";
 import type { GLTF } from "three/examples/jsm/Addons.js";
 
 export interface TelemetryReading {
+  dayNum: number;
   vehicleId: number;
   trip: number;
   timestamp: number;

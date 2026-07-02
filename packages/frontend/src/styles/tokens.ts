@@ -1,6 +1,7 @@
 export const t = {
   // surfaces
   bg: "var(--bg)",
+  whiteBG: "var(--whiteBG)",
   surface: "var(--surface)",
   surface2: "var(--surface-2)",
   surface3: "var(--surface-3)",

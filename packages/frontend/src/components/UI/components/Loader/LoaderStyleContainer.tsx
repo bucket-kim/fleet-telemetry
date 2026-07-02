@@ -12,7 +12,7 @@ export const LoaderStyleContainer = styled(motion.div)`
     align-items: center;
     justify-content: center;
     background-color: ${t.bg};
-    z-index: 10;
+    z-index: 20;
     p {
         font-weight: 600;
         text-transform: uppercase;

@@ -23,7 +23,7 @@ export const initCosmos = async () => {
 };
 
 export const saveReadings = async (reading: TelemetryReading) => {
-  const resourceId = `${reading.vehicleId}-${reading.trip}-${reading.timestamp}`;
+  const resourceId = `${reading.vehicleId}-${reading.dayNum}-${reading.trip}-${reading.timestamp}`;
 
   await container.items.upsert({ ...reading, id: resourceId });
 };
@@ -33,7 +33,8 @@ export const getReadings = async (
 ): Promise<TelemetryReading[]> => {
   const { resources } = await container.items
     .query({
-      query: "SELECT * FROM c WHERE c.vehicleId = @vehicleId",
+      query:
+        "SELECT c.id, c.dayNum, c.trip, c.timestamp FROM c WHERE c.vehicleId = 10 ORDER BY c.timestamp",
       parameters: [{ name: "@vehicleId", value: vehicleId }],
     })
     .fetchAll();

@@ -11,14 +11,15 @@ interface MetricGuageCardProps {
     max: number;
     colorA: string;
     colorB: string;
+    handleClick: () => void;
 }
 
-const MetricGuageCard: FC<MetricGuageCardProps> = ({ icon, label, value, unit, min, max, colorA, colorB }) => {
+const MetricGuageCard: FC<MetricGuageCardProps> = ({ icon, label, value, unit, min, max, colorA, colorB, handleClick }) => {
 
     const safeValue = Number.isFinite(value) ? value : min;
 
     return (
-        <MetricGuageCardStyleContainer>
+        <MetricGuageCardStyleContainer onClick={handleClick}>
             <div className="card-header">
                 <img src={icon} alt="" />
                 <span>{label}</span>

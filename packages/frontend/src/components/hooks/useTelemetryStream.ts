@@ -16,6 +16,7 @@ export const useTelemetryStream = () => {
 
   useEffect(() => {
     let ws: WebSocket;
+
     let isUnmounting = false;
 
     const connect = () => {

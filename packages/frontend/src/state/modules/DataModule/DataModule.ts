@@ -1,6 +1,6 @@
 import type { TelemetryReading } from "@fleet/shared";
 import type { GlobalStateApiType } from "../../GlobalStateTypes";
-import type { VehicleInfoType } from "./DataModuleTypes";
+import type { signalType, VehicleInfoType } from "./DataModuleTypes";
 
 export const DataModule = ({ set }: GlobalStateApiType) => {
   return {
@@ -27,6 +27,11 @@ export const DataModule = ({ set }: GlobalStateApiType) => {
     isOffline: false,
     setIsOffline: (isOffline: boolean) => {
       set({ isOffline: isOffline });
+    },
+
+    signal: "speed" as signalType,
+    setSignal: (signal: signalType) => {
+      set({ signal: signal });
     },
   };
 };

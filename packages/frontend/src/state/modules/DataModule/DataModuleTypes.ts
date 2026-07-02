@@ -6,6 +6,8 @@ export interface VehicleInfoType {
   model?: string;
 }
 
+export type signalType = "speed" | "socPercent" | "kw";
+
 export interface DataModuletypes {
   readings: TelemetryReading[];
   setReadings: (readings: TelemetryReading[]) => void;
@@ -21,4 +23,7 @@ export interface DataModuletypes {
 
   isOffline: boolean;
   setIsOffline: (isOffline: boolean) => void;
+
+  signal: signalType;
+  setSignal: (signal: signalType) => void;
 }

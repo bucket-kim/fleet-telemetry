@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const MetricsStyleContainer = styled.div`
     display: grid;
+    grid-template-rows: minmax(0px, 1fr);
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(0, 1.2fr) 1.8fr;
     gap: .5rem;
     flex: 1;
