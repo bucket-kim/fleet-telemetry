@@ -5,6 +5,15 @@ import { useMemo, type FC } from 'react';
 import { useGlobalState } from '../../../../state/useGlobalState';
 import { isMobile, useMobileOrientation } from 'react-device-detect';
 
+const formatTime = (timestamp: number) => {
+    const hours = Math.floor(timestamp / 3600);
+    const minutes = Math.floor((timestamp % 3600) / 60);
+    const seconds = Math.floor(timestamp % 60);
+
+    return [hours, minutes, seconds].map((val) => val.toString().padStart(2, "0")).join(":")
+
+}
+
 interface SpeedChartProps {
     readings: TelemetryReading[]
 }
@@ -53,7 +62,7 @@ const SpeedChart: FC<SpeedChartProps> = ({ readings }) => {
     const { linePath, xScale, yScale } = useMemo(() => {
         const xScale = d3.scaleLinear()
             // .domain([0, readings.length - 1])
-            .domain([0, readings.length - 1])
+            .domain([0, d3.max(readings, d => d.timestamp) ?? 0])
             .range([(margin.left / 2) - 3.5, innerWidth]);
 
         const yScale = d3.scaleLinear()
@@ -61,7 +70,7 @@ const SpeedChart: FC<SpeedChartProps> = ({ readings }) => {
             .range([innerHeight, 0]);
 
         const line = d3.line<TelemetryReading>()
-            .x((_, i) => xScale(i))
+            .x((d) => xScale(d.timestamp))
             .y(d => yScale(active.accessor(d) as d3.NumberValue));
 
         return { linePath: line(readings) ?? "", xScale, yScale };
@@ -88,7 +97,7 @@ const SpeedChart: FC<SpeedChartProps> = ({ readings }) => {
                         <g key={tick} transform={`translate(${xScale(tick)}, ${innerHeight})`}>
                             <line y1={0} y2={5} stroke="#888" />
                             <text y={20} dx={"0rem"} textAnchor="middle" fill="#888" fontSize={isMobile ? 8 : 12}>
-                                {tick}
+                                {formatTime(tick / 1000)}
                             </text>
                         </g>
                     )
