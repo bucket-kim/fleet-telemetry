@@ -42,7 +42,5 @@ export const loadReadings = (): TelemetryReading[] => {
         },
       };
     })
-    .filter(
-      (r) => r.vehicleId === 10 && r.dayNum === 15.854019787 && r.trip === 1625,
-    );
+    .filter((r) => r.vehicleId === 10 && r.trip === 1625);
 };

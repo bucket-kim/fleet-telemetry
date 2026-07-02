@@ -34,7 +34,7 @@ export const getReadings = async (
   const { resources } = await container.items
     .query({
       query:
-        "SELECT c.id, c.dayNum, c.trip, c.timestamp FROM c WHERE c.vehicleId = 10 ORDER BY c.timestamp",
+        "SELECT * FROM c WHERE c.vehicleId = @vehicleId ORDER BY c.timestamp",
       parameters: [{ name: "@vehicleId", value: vehicleId }],
     })
     .fetchAll();
