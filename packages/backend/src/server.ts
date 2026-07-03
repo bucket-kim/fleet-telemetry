@@ -104,7 +104,12 @@ const replay = async (readings: TelemetryReading[]) => {
 const startServer = async () => {
   await initCosmos();
   replay(loadReadings(10));
-  replay(loadReadings(137));
+  replay(loadReadings(139));
+  replay(loadReadings(8));
+
+  const r = loadReadings(8);
+  console.log("vehicle 8 first reading vehicleId:", r[0]?.vehicleId);
+  console.log("count:", r.length);
 };
 
 startServer();

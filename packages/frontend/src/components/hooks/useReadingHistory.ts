@@ -4,9 +4,10 @@ import type { TelemetryReading } from "@fleet/shared";
 import { API_BASE } from "../../const/variable";
 
 export const useReadingHistory = (vehicleId: number) => {
-  const { setReadings } = useGlobalState((state) => {
+  const { setReadings, setSelectedVehicleId } = useGlobalState((state) => {
     return {
       setReadings: state.setReadings,
+      setSelectedVehicleId: state.setSelectedVehicleId,
     };
   });
 
@@ -15,6 +16,7 @@ export const useReadingHistory = (vehicleId: number) => {
       .then((res) => res.json())
       .then((data: TelemetryReading[]) => {
         setReadings(data);
+        setSelectedVehicleId(vehicleId);
       });
   }, [vehicleId]);
 };

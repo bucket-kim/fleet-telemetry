@@ -9,11 +9,14 @@ export interface VehicleInfoType {
 export type signalType = "speed" | "socPercent" | "kw";
 
 export interface DataModuletypes {
+  selectedVehicleId: number;
+  setSelectedVehicleId: (id: number) => void;
+
   readings: TelemetryReading[];
   setReadings: (readings: TelemetryReading[]) => void;
 
-  latest: TelemetryReading | null;
-  setLatest: (latest: TelemetryReading | null) => void;
+  latest: Record<number, TelemetryReading>;
+  setLatest: (latest: TelemetryReading) => void;
 
   vehicleInfo: VehicleInfoType | null;
   setVehicleInfo: (info: VehicleInfoType) => void;

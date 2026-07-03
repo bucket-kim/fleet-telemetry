@@ -7,8 +7,13 @@ import ToastItem from './Toast/ToastItem';
 
 const Notifications = () => {
 
+    const { selectedVehicleId } = useGlobalState((state) => {
+        return {
+            selectedVehicleId: state.selectedVehicleId
+        }
+    })
     const { latest } = useGlobalState((state) => {
-        return { latest: state.latest }
+        return { latest: state.latest[selectedVehicleId] }
     })
 
     const notificationRef = useRef<HTMLDivElement>(null);

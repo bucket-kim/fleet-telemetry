@@ -3,24 +3,32 @@ import { MetricsStyleContainer } from './MetricsStyleContainer'
 import MetricGuageCard from '../../components/Guage/MetricGuageCard'
 import VehicleInfo from '../VehicleInfo/VehicleInfo'
 import { useGlobalState } from '../../../../state/useGlobalState'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 const batterImg = "/svg/battery.svg"
 const speedometerImg = "/svg/speedometer.svg"
 
 const Metrics = () => {
-
+  const { selectedVehicleId } = useGlobalState((state) => {
+    return {
+      selectedVehicleId: state.selectedVehicleId
+    }
+  })
   const { latest, vehicleInfo, setSignal } = useGlobalState((state) => {
     return {
-      latest: state.latest,
+      latest: state.latest[selectedVehicleId],
       vehicleInfo: state.vehicleInfo,
-      setSignal: state.setSignal
+      setSignal: state.setSignal,
     }
   })
 
   const hasBattery = useMemo(() => {
     return vehicleInfo?.powertrain !== "ICE"
   }, [vehicleInfo])
+
+  useEffect(() => {
+    console.log(latest)
+  }, [latest])
 
   return (
     <MetricsStyleContainer>

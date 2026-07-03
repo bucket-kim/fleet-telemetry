@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { useGlobalState } from "../../state/useGlobalState";
-import type { TelemetryReading } from "@fleet/shared";
 import { WS_URL } from "../../const/variable";
 
 export const useTelemetryStream = () => {
@@ -28,7 +27,8 @@ export const useTelemetryStream = () => {
       };
 
       ws.onmessage = (event) => {
-        const readings: TelemetryReading = JSON.parse(event.data);
+        const readings = JSON.parse(event.data);
+        // console.log("received vehicle: ", readings.vehicleId);
         setLatest(readings);
       };
 

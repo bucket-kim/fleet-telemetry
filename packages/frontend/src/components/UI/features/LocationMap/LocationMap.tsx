@@ -7,9 +7,14 @@ import { LocationMapStyleContainer } from './LocationMapStyleContainer'
 
 const LocationMap = () => {
 
+    const { selectedVehicleId } = useGlobalState((state) => {
+        return {
+            selectedVehicleId: state.selectedVehicleId
+        }
+    })
     const { latest } = useGlobalState((state) => {
         return {
-            latest: state.latest
+            latest: state.latest[selectedVehicleId]
         }
     })
 

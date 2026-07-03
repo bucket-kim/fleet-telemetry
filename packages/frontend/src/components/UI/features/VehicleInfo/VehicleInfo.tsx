@@ -13,11 +13,15 @@ const formatTime = (timestamp: number) => {
 }
 
 const VehicleInfo = () => {
-
+    const { selectedVehicleId } = useGlobalState((state) => {
+        return {
+            selectedVehicleId: state.selectedVehicleId
+        }
+    })
     const { vehicleInfo, latest, connected } = useGlobalState((state) => {
         return {
             vehicleInfo: state.vehicleInfo,
-            latest: state.latest,
+            latest: state.latest[selectedVehicleId],
             connected: state.connected,
         }
     })

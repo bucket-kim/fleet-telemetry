@@ -4,14 +4,21 @@ import type { signalType, VehicleInfoType } from "./DataModuleTypes";
 
 export const DataModule = ({ set }: GlobalStateApiType) => {
   return {
+    selectedVehicleId: 10,
+    setSelectedVehicleId: (id: number) => {
+      set({ selectedVehicleId: id });
+    },
+
     readings: [],
     setReadings: (readings: TelemetryReading[]) => {
       set({ readings: readings });
     },
 
-    latest: null,
-    setLatest: (latest: TelemetryReading | null) => {
-      set({ latest: latest });
+    latest: {},
+    setLatest: (reading: TelemetryReading) => {
+      set((state) => ({
+        latest: { ...state.latest, [reading.vehicleId]: reading },
+      }));
     },
 
     vehicleInfo: null,

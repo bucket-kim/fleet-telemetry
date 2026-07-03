@@ -13,9 +13,14 @@ const SPEED_FACTOR = 0.75;
 
 export function Porsche(props: JSX.IntrinsicElements['group']) {
 
+  const { selectedVehicleId } = useGlobalState((state) => {
+    return {
+      selectedVehicleId: state.selectedVehicleId
+    }
+  })
   const { latest } = useGlobalState((state) => {
     return {
-      latest: state.latest
+      latest: state.latest[selectedVehicleId]
     }
   })
 
