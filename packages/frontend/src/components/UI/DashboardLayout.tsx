@@ -15,22 +15,32 @@ import Reconnect from './components/Notifications/Reconnect/Reconnect'
 import SpeedChart from './components/SpeedChart/SpeedChart'
 import { isMobile, useMobileOrientation } from 'react-device-detect'
 import { Fragment } from 'react/jsx-runtime'
+import { useEffect } from 'react'
 
 const DashboardLayout = () => {
-    useReadingHistory(10)
-    useVehicleInfo(10)
+    useReadingHistory(139)
+    useVehicleInfo(139)
     useTelemetryStream()
 
     const { isPortrait } = useMobileOrientation();
 
+    const { selectedVehicleId } = useGlobalState((state) => {
+        return {
+            selectedVehicleId: state.selectedVehicleId
+        }
+    })
+
     const { latest, connected, readings } = useGlobalState((state) => {
         return {
-            latest: state.latest,
+            latest: state.latest[selectedVehicleId],
             connected: state.connected,
             readings: state.readings,
         }
     })
 
+    useEffect(() => {
+        console.log(latest)
+    }, [latest])
 
     const isLoading = !latest;
     const showReconnecting = !connected && latest;

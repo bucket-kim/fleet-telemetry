@@ -1,11 +1,7 @@
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { read, readFileSync } from "fs";
-import {
-  TelemetryReading,
-  VehicleDataType,
-  VehicleSourceType,
-} from "@fleet/shared";
+import { TelemetryReading } from "@fleet/shared";
 import { VEHICLE_SOURCE } from "./const/variables";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

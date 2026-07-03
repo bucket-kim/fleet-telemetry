@@ -69,6 +69,10 @@ const sleep = (ms: number) => {
 };
 
 const replay = async (readings: TelemetryReading[]) => {
+  // Guard: an empty array would make the outer while(true) a tight, await-less
+  // loop that blocks the entire Node event loop (freezing the whole server).
+  if (readings.length === 0) return;
+
   // let firstLapDone = false;
 
   while (true) {
@@ -103,9 +107,27 @@ const replay = async (readings: TelemetryReading[]) => {
 
 const startServer = async () => {
   await initCosmos();
-  replay(loadReadings(10));
-  replay(loadReadings(139));
-  replay(loadReadings(8));
+
+  const vehicleIDs = Object.keys(VEHICLE_INFO).map(Number);
+
+  for (const vehicleId of vehicleIDs) {
+    try {
+      const readings = loadReadings(vehicleId);
+      if (readings.length === 0) {
+        console.warn(`Vehicle ${vehicleId}: 0 readings loaded — skipping.`);
+        continue;
+      }
+      console.log(
+        `Vehicle ${vehicleId}: replaying ${readings.length} readings.`,
+      );
+      replay(readings);
+    } catch (err) {
+      console.error(
+        `Vehicle ${vehicleId}: failed to load —`,
+        (err as Error).message,
+      );
+    }
+  }
 };
 
 startServer();
