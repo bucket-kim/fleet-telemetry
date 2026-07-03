@@ -17,8 +17,8 @@ import { isMobile, useMobileOrientation } from 'react-device-detect'
 import { Fragment } from 'react/jsx-runtime'
 
 const DashboardLayout = () => {
-    useReadingHistory(10)
-    useVehicleInfo(10)
+    useReadingHistory(139)
+    useVehicleInfo(139)
     useTelemetryStream()
 
     const { isPortrait } = useMobileOrientation();

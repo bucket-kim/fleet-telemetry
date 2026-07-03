@@ -5,8 +5,12 @@ export const VEHICLE_SOURCE: VehicleSourceType = {
     file: "VED_171115_week.csv",
     trip: 1625,
   },
-  8: {
-    file: "VED_171101_week.csv",
-    trip: 706,
+  // 8: {
+  //   file: "VED_171101_week.csv",
+  //   trip: 706,
+  // },
+  139: {
+    file: "VED_171227_week.csv",
+    trip: 1163,
   },
 };
