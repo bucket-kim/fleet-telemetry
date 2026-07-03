@@ -28,7 +28,7 @@ export const useTelemetryStream = () => {
 
       ws.onmessage = (event) => {
         const readings = JSON.parse(event.data);
-        // console.log("received vehicle: ", readings.vehicleId);
+        console.log("received vehicle: ", readings.vehicleId);
         setLatest(readings);
       };
 

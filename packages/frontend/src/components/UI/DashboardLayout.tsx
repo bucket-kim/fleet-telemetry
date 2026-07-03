@@ -39,8 +39,8 @@ const DashboardLayout = () => {
     })
 
     useEffect(() => {
-        console.log(latest)
-    }, [latest])
+        console.log(selectedVehicleId)
+    }, [selectedVehicleId])
 
     const isLoading = !latest;
     const showReconnecting = !connected && latest;

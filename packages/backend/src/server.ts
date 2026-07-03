@@ -1,7 +1,6 @@
 import express from "express";
 import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
-import { loadReadings } from "./loadTrip";
 import { TelemetryReading } from "@fleet/shared";
 import { VEHICLE_INFO } from "../../shared/src/vehicleInfo";
 import { getReadings, initCosmos, saveReadings } from "./db";
@@ -69,8 +68,6 @@ const sleep = (ms: number) => {
 };
 
 const replay = async (readings: TelemetryReading[]) => {
-  // Guard: an empty array would make the outer while(true) a tight, await-less
-  // loop that blocks the entire Node event loop (freezing the whole server).
   if (readings.length === 0) return;
 
   // let firstLapDone = false;
@@ -112,7 +109,7 @@ const startServer = async () => {
 
   for (const vehicleId of vehicleIDs) {
     try {
-      const readings = loadReadings(vehicleId);
+      const readings = await getReadings(vehicleId);
       if (readings.length === 0) {
         console.warn(`Vehicle ${vehicleId}: 0 readings loaded — skipping.`);
         continue;
