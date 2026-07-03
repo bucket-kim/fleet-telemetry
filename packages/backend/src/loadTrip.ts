@@ -1,16 +1,24 @@
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import { read, readFileSync } from "fs";
-import { TelemetryReading } from "@fleet/shared";
+import {
+  TelemetryReading,
+  VehicleDataType,
+  VehicleSourceType,
+} from "@fleet/shared";
+import { VEHICLE_SOURCE } from "./const/variables";
 
-const fileName = "VED_171115_week.csv";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const num = (cell: string): number | null =>
   cell === "NaN" ? null : parseFloat(cell);
 
-export const loadReadings = (): TelemetryReading[] => {
-  const filePath = join(__dirname, "..", "/data", fileName);
+export const loadReadings = (vehicleId: number): TelemetryReading[] => {
+  const source = VEHICLE_SOURCE[vehicleId];
+
+  if (!source) throw new Error(`No source configured for vehicle ${vehicleId}`);
+
+  const filePath = join(__dirname, "..", "/data", source.file);
   const result = readFileSync(filePath, "utf-8");
   const rows = result.trim().split("\n");
   const dataRows = rows.slice(1);
@@ -42,5 +50,5 @@ export const loadReadings = (): TelemetryReading[] => {
         },
       };
     })
-    .filter((r) => r.vehicleId === 10 && r.trip === 1625);
+    .filter((r) => r.vehicleId === vehicleId && r.trip === source.trip);
 };

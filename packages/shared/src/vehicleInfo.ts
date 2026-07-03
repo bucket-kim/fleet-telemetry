@@ -10,4 +10,9 @@ export const VEHICLE_INFO: Record<number, VehicleInfoType> = {
     powertrain: "EV",
     model: "NX1 Performance",
   },
+  8: {
+    vehicleId: 8,
+    powertrain: "ICE",
+    model: "KB2 Vehicle",
+  },
 };

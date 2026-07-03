@@ -10,6 +10,14 @@ export const SpeedChartStyleContainer = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
+    min-height: 0;
+    overflow: hidden;
+
+    svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
 
     p {
         color: ${t.textMuted};

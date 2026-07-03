@@ -16,6 +16,13 @@ export interface TelemetryReading {
   };
 }
 
+export interface VehicleDataType {
+  file: string;
+  trip: number;
+}
+
+export type VehicleSourceType = Record<number, VehicleDataType>;
+
 export type Alert = {
   id: string;
   severity: "warning" | "critical";

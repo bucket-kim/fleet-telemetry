@@ -62,14 +62,14 @@ wss.on("connection", (ws) => {
 
 console.log("WebSocket server running on ws://localhost:8080");
 
-const readings = loadReadings();
+// const readings = loadReadings();
 
 const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 const replay = async (readings: TelemetryReading[]) => {
-  let firstLapDone = false;
+  // let firstLapDone = false;
 
   while (true) {
     let i = 0;
@@ -78,15 +78,15 @@ const replay = async (readings: TelemetryReading[]) => {
         i === 0 ? 0 : readings[i].timestamp - readings[i - 1].timestamp;
       await sleep(pause);
 
-      if (!firstLapDone) {
-        saveReadings(readings[i]).catch((err) => {
-          console.error(
-            "Saved failed for reading ",
-            readings[i].timestamp,
-            err.message,
-          );
-        });
-      }
+      // if (!firstLapDone) {
+      //   saveReadings(readings[i]).catch((err) => {
+      //     console.error(
+      //       "Saved failed for reading ",
+      //       readings[i].timestamp,
+      //       err.message,
+      //     );
+      //   });
+      // }
 
       wss.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
@@ -97,13 +97,14 @@ const replay = async (readings: TelemetryReading[]) => {
       i++;
     }
 
-    firstLapDone = true;
+    // firstLapDone = true;
   }
 };
 
 const startServer = async () => {
   await initCosmos();
-  replay(readings);
+  replay(loadReadings(10));
+  replay(loadReadings(8));
 };
 
 startServer();
