@@ -32,6 +32,10 @@ export const useTelemetryStream = () => {
         setLatest(readings);
       };
 
+      ws.onerror = (e) => {
+        console.error("WebSocket error", e);
+      };
+
       ws.onclose = () => {
         setConnected(false);
         if (isUnmounting) return;
