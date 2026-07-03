@@ -6,7 +6,7 @@ export interface VehicleInfoType {
   model?: string;
 }
 
-export type signalType = "speed" | "socPercent" | "kw";
+export type signalType = "speed" | "socPercent" | "kw" | "rpm";
 
 export interface DataModuletypes {
   selectedVehicleId: number;

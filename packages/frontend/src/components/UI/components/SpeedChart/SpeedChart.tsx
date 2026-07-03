@@ -47,6 +47,12 @@ const SpeedChart: FC<SpeedChartProps> = ({ readings }) => {
             label: "Power (kW)",
             color: "#ffb60b"
         },
+        rpm: {
+            accessor: (d: TelemetryReading) => d.rpm,
+            domain: [0, 8000],
+            label: "RPM",
+            color: "#ffb60b"
+        },
     }
 
     const active = signalConfig[signal]
@@ -76,6 +82,7 @@ const SpeedChart: FC<SpeedChartProps> = ({ readings }) => {
         return { linePath: line(readings) ?? "", xScale, yScale };
     }, [readings, innerWidth, innerHeight, active]);
 
+
     return (
         <SpeedChartStyleContainer>
             <p>{active.label}</p>
@@ -86,7 +93,7 @@ const SpeedChart: FC<SpeedChartProps> = ({ readings }) => {
                 {yScale.ticks(isMobile && isLandscape ? 3 : 5).map((tick) => (
                     <g key={tick} transform={`translate(0, ${yScale(tick)})`}>
                         <line x1={0} x2={width} stroke='#67676778' strokeWidth={0.5} />
-                        <text x={19} dy={"1.25rem"} textAnchor='end' fill='#888' fontSize={isMobile ? 8 : 12} >
+                        <text x={isMobile ? 1 : 9} dy={"1.25rem"} textAnchor='start' fill='#888' fontSize={isMobile ? 8 : 12} >
                             {tick}
                         </text>
                     </g>

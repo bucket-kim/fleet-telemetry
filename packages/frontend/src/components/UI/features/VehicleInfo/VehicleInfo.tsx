@@ -30,22 +30,26 @@ const VehicleInfo = () => {
         {
             img: "/svg/VIN.svg",
             labelTitle: "VIN",
-            labelInfo: "NX1PF23A5R1002478"
+            labelInfo: "NX1PF23A5R1002478",
+            color: "#8a94a6"
         },
         {
             img: "/svg/avatar.svg",
             labelTitle: "DRIVER",
-            labelInfo: "Brian Kim"
+            labelInfo: "Brian Kim",
+            color: "#8a94a6"
         },
         {
             img: "/svg/online.svg",
             labelTitle: "STATUS",
-            labelInfo: connected ? "Online" : "Offline"
+            labelInfo: connected ? "Online" : "Offline",
+            color: connected ? "#27c456" : "#da231a"
         },
         {
             img: "/svg/clock.svg",
             labelTitle: "LAST UPDATE",
-            labelInfo: latest?.timestamp != null ? formatTime(latest.timestamp / 1000) : "—"
+            labelInfo: latest?.timestamp != null ? formatTime(latest.timestamp / 1000) : "—",
+            color: "#8a94a6"
         },
     ]
 
@@ -68,7 +72,7 @@ const VehicleInfo = () => {
                             <img src={data.img} alt="label_img" />
                             <span>{data.labelTitle}</span>
                         </div>
-                        <p>
+                        <p style={{ color: `${data.color}` }}>
                             {data.labelInfo}
                         </p>
                     </div>

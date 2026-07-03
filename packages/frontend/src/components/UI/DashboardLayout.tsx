@@ -15,11 +15,10 @@ import Reconnect from './components/Notifications/Reconnect/Reconnect'
 import SpeedChart from './components/SpeedChart/SpeedChart'
 import { isMobile, useMobileOrientation } from 'react-device-detect'
 import { Fragment } from 'react/jsx-runtime'
-import { useEffect } from 'react'
 
 const DashboardLayout = () => {
-    useReadingHistory(139)
-    useVehicleInfo(139)
+    useReadingHistory(10)
+    useVehicleInfo(10)
     useTelemetryStream()
 
     const { isPortrait } = useMobileOrientation();
@@ -37,10 +36,6 @@ const DashboardLayout = () => {
             readings: state.readings,
         }
     })
-
-    useEffect(() => {
-        console.log(selectedVehicleId)
-    }, [selectedVehicleId])
 
     const isLoading = !latest;
     const showReconnecting = !connected && latest;

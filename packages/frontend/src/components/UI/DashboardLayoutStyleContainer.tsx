@@ -36,6 +36,7 @@ export const DashboardLayoutStyleContainer = styled.div`
     }
 
     @media screen and (orientation: portrait) and (max-width: 440px) {
+        overflow-y: scroll;
         .layout-container {
             padding: 0.5rem;
             padding-top: 0rem;

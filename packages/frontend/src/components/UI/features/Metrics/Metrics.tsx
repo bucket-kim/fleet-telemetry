@@ -39,7 +39,7 @@ const Metrics = () => {
       {hasBattery ? (
         <MetricGuageCard icon={speedometerImg} label={"power"} value={latest?.kw != null ? Math.round(latest.kw * 10) / 10 : 0} unit={"kW"} min={-50} max={50} colorA='#e17000' colorB='#ffd60b' handleClick={() => setSignal('kw')} />
       ) : (
-        <MetricGuageCard icon={speedometerImg} label={"RPM"} value={latest?.rpm ?? 0} unit={"rpm"} min={0} max={8000} colorA='#e17000' colorB='#ffd60b' handleClick={() => setSignal('kw')} />
+        <MetricGuageCard icon={speedometerImg} label={"RPM"} value={latest?.rpm ?? 0} unit={"rpm"} min={0} max={8000} colorA='#e17000' colorB='#ffd60b' handleClick={() => setSignal('rpm')} />
 
       )}
       <div className="vehicleInfo">
