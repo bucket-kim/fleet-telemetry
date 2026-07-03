@@ -3,7 +3,7 @@ import { MetricsStyleContainer } from './MetricsStyleContainer'
 import MetricGuageCard from '../../components/Guage/MetricGuageCard'
 import VehicleInfo from '../VehicleInfo/VehicleInfo'
 import { useGlobalState } from '../../../../state/useGlobalState'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 
 const batterImg = "/svg/battery.svg"
 const speedometerImg = "/svg/speedometer.svg"
@@ -26,9 +26,9 @@ const Metrics = () => {
     return vehicleInfo?.powertrain !== "ICE"
   }, [vehicleInfo])
 
-  useEffect(() => {
-    console.log(latest)
-  }, [latest])
+  // useEffect(() => {
+  //   console.log(latest)
+  // }, [latest])
 
   return (
     <MetricsStyleContainer>
