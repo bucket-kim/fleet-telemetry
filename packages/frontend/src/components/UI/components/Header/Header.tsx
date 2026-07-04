@@ -1,4 +1,5 @@
 import { useGlobalState } from '../../../../state/useGlobalState'
+import OnlineCircle from '../OnlineCircle/OnlineCircle'
 import { HeaderStyleContainer } from './HeaderStyleContainer'
 
 const Header = () => {
@@ -16,8 +17,9 @@ const Header = () => {
                 <p>Telemetry</p>
             </div>
             <div className="right-header">
+
                 <span>
-                    <div className='online-circle' style={{ backgroundColor: isOffline ? "#da231a" : "#27c456", borderRadius: "50%" }} />
+                    <OnlineCircle />
                     <p>
                         Vehicle {isOffline ? "offline" : "online"}
                     </p>

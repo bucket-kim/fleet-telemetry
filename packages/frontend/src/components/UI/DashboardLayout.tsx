@@ -17,9 +17,6 @@ import { isMobile, useMobileOrientation } from 'react-device-detect'
 import { Fragment } from 'react/jsx-runtime'
 
 const DashboardLayout = () => {
-    useReadingHistory(10)
-    useVehicleInfo(10)
-    useTelemetryStream()
 
     const { isPortrait } = useMobileOrientation();
 
@@ -36,6 +33,10 @@ const DashboardLayout = () => {
             readings: state.readings,
         }
     })
+
+    useReadingHistory(selectedVehicleId)
+    useVehicleInfo(selectedVehicleId)
+    useTelemetryStream()
 
     const isLoading = !latest;
     const showReconnecting = !connected && latest;

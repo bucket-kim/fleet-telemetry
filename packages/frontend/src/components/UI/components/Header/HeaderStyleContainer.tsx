@@ -25,11 +25,6 @@ export const HeaderStyleContainer = styled.div`
             align-items: center;
             gap: 0.35rem;
 
-            .online-circle {
-                width: 0.7rem;
-                height: 0.7rem;
-            }
-
             p {
                   letter-spacing: -0.05rem;
             }
@@ -52,12 +47,6 @@ export const HeaderStyleContainer = styled.div`
     .right-header {
         span {
             gap: 0.25rem;
-
-            .online-circle {
-                width: 0.5rem;
-                height: 0.5rem;
-            }
-
             p {
                  font-size: .75rem;
                   letter-spacing: -0.05rem;
@@ -84,12 +73,6 @@ export const HeaderStyleContainer = styled.div`
     .right-header {
         span {
             gap: 0.25rem;
-
-            .online-circle {
-                width: 0.5rem;
-                height: 0.5rem;
-            }
-
             p {
                  font-size: .75rem;
                   letter-spacing: -0.05rem;
