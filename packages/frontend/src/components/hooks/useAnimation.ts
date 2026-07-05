@@ -23,6 +23,24 @@ export const tireRotationAnimation = (
   tireFL.current.rotation.x += rotationSpeed * delta;
 };
 
+export const carGPSAnimation = (
+  carRef: RefObject<THREE.Group | null>,
+  bearing: number,
+  delta: number,
+) => {
+  if (!carRef.current) return;
+  const current = carRef.current.rotation.y;
+  let diff = bearing - current;
+  diff = Math.atan2(Math.sin(diff), Math.cos(diff));
+  const target = current + diff;
+  carRef.current.rotation.y = THREE.MathUtils.damp(
+    current,
+    target,
+    1,
+    delta * SPEED_FACTOR,
+  );
+};
+
 const toRad = (deg: number) => (deg * Math.PI) / 180;
 
 export const getBearing = (prev: Coord, curr: Coord): number => {

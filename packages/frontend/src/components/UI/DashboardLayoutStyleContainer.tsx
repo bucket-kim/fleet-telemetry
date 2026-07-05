@@ -13,7 +13,8 @@ export const DashboardLayoutStyleContainer = styled.div`
     padding: 1rem;
     
     .layout-container {
-        border: 1px "#EEF0F6" solid;
+        /* border: 1px ${t.border} solid; */
+       box-shadow: ${t.shadow};
         border-radius: 1rem;
         background: linear-gradient(180deg, ${t.whiteBG} 0%, rgba(0, 0, 0, 0) 100%);
         min-height: 0;  

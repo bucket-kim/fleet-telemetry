@@ -15,6 +15,7 @@ import Reconnect from './components/Notifications/Reconnect/Reconnect'
 import SpeedChart from './components/SpeedChart/SpeedChart'
 import { isMobile, useMobileOrientation } from 'react-device-detect'
 import { Fragment } from 'react/jsx-runtime'
+import InputChoice from './components/InputChoice/InputChoice'
 
 const DashboardLayout = () => {
 
@@ -57,6 +58,7 @@ const DashboardLayout = () => {
             <Header />
             <div className="layout-container">
                 <div className='upper-container'>
+                    <InputChoice />
                     <R3F />
                     <LocationMap />
                 </div>

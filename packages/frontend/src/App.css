@@ -10,7 +10,7 @@
   color-scheme: light;
 
   /* surfaces */
-  --bg: #eef1f6; /* page background */
+  --bg: #f8f9fc; /* page background */
   --whiteBG: #ffffff; /* page background */
   --surface: #ffffff; /* cards / panels */
   --surface-2: #f4f6fa; /* nested wells, inputs, gauge area */

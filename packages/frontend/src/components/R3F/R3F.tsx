@@ -1,14 +1,13 @@
 import { ContactShadows, OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { Porsche } from './entities/Porsche'
 import Light from './entities/Light/Light'
 import { Fragment } from 'react/jsx-runtime'
-import InputChoice from '../UI/components/InputChoice/InputChoice'
+import Cars from './entities/Cars/Cars'
 
 const R3F = () => {
+
     return (
         <Fragment>
-            <InputChoice />
             <Canvas
                 camera={{ position: [0, 4, -12], fov: 35 }}
             >
@@ -16,11 +15,8 @@ const R3F = () => {
                 <directionalLight position={[5, 5, 5]} intensity={1} />
                 <Light />
                 <OrbitControls enablePan={false} minDistance={10} maxDistance={12} minPolarAngle={Math.PI / 2.75} maxPolarAngle={Math.PI / 2.25} />
-                <Porsche />
+                <Cars />
                 <ContactShadows position={[0, -1, 0]} opacity={.5} />
-                {/* <Box>
-                <meshNormalMaterial />
-            </Box> */}
             </Canvas>
         </Fragment>
     )

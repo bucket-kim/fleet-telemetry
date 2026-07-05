@@ -1,36 +1,20 @@
 
-import { useEffect, useRef, useState, type JSX } from 'react'
+import { useRef, type FC } from 'react'
 import { useGLTF } from '@react-three/drei'
 import posrcheModel from './porsche-transformed.glb?url'
 import type { GLTFResult } from '@fleet/shared'
 import { useFrame } from '@react-three/fiber'
-import { useGlobalState } from '../../../state/useGlobalState'
 import * as THREE from 'three';
-import { useMaterials } from './Materials/Materials'
-import { getBearing, tireRotationAnimation } from '../../hooks/useAnimation'
+import { useMaterials } from '../../Materials/Materials'
+import { carGPSAnimation, tireRotationAnimation } from '../../../../hooks/useAnimation'
+import type { CarsProps } from '../CAR_REGISTRY'
 
-const SPEED_FACTOR = 0.75;
 
-export function Porsche(props: JSX.IntrinsicElements['group']) {
-
-  const { selectedVehicleId } = useGlobalState((state) => {
-    return {
-      selectedVehicleId: state.selectedVehicleId
-    }
-  })
-  const { latest } = useGlobalState((state) => {
-    return {
-      latest: state.latest[selectedVehicleId]
-    }
-  })
-
-  const [bearing, setBearing] = useState<number>(0)
-
+export const Porsche: FC<CarsProps> = ({ latest, bearing }) => {
   const tireBackrightRef = useRef<THREE.Group>(null);
   const tireFrontrightRef = useRef<THREE.Group>(null);
   const tireBackLeftRef = useRef<THREE.Group>(null);
   const tireFrontLeftRef = useRef<THREE.Group>(null);
-  const prevPosition = useRef<{ lat: number, lng: number } | null>(null)
   const carRef = useRef<THREE.Group>(null)
 
   const { glassMaterial, redGlassMaterial } = useMaterials();
@@ -38,37 +22,14 @@ export function Porsche(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF(posrcheModel) as unknown as GLTFResult;
 
 
-  useEffect(() => {
-    if (!latest) return;
-    const current = { lat: latest.gps.latitude, lng: latest.gps.longitude };
-
-    if (prevPosition.current) {
-      const moved =
-        prevPosition.current.lat !== current.lat ||
-        prevPosition.current.lng !== current.lng;
-
-      if (moved) {
-        const bearing = getBearing(prevPosition.current, current);
-        setBearing(bearing);
-      }
-    }
-
-    prevPosition.current = current;
-  }, [latest]);
-
   useFrame((_, delta) => {
     tireRotationAnimation(tireBackrightRef, tireFrontrightRef, tireBackLeftRef, tireFrontLeftRef, latest, delta)
 
-    if (!carRef.current) return;
-    const current = carRef.current.rotation.y;
-    let diff = bearing - current;
-    diff = Math.atan2(Math.sin(diff), Math.cos(diff));
-    const target = current + diff;
-    carRef.current.rotation.y = THREE.MathUtils.damp(current, target, 1, delta * SPEED_FACTOR);
+    carGPSAnimation(carRef, bearing, delta)
   })
 
   return (
-    <group {...props} dispose={null} ref={carRef}>
+    <group dispose={null} ref={carRef}>
       <mesh name="Cube002" geometry={nodes.Cube002.geometry} material={materials.full_black} scale={[0.332, 0.318, 0.318]} />
       <mesh name="boot011" geometry={nodes.boot011.geometry} material={materials.coat} />
       <mesh name="boot010" geometry={nodes.boot010.geometry} material={materials.plastic} />

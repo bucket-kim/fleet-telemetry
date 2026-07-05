@@ -44,9 +44,10 @@ export const InputChoiceStyleContainer = styled.div`
         gap: 0.5rem;
 
         .selection {
-            font-size: .5rem;
-
+            font-size: .7rem;
+            
             .options {
+                font-size: .7rem;
             }
         }
     }
@@ -65,9 +66,10 @@ export const InputChoiceStyleContainer = styled.div`
         gap: 0.5rem;
 
         .selection {
-            font-size: .5rem;
-
+            font-size: .7rem;
+            
             .options {
+                font-size: .7rem;
             }
         }
     }
