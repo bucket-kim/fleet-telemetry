@@ -20,7 +20,7 @@ const InputChoice = () => {
 
     const tripId = useMemo(() => {
         return latest[selectedVehicleId]?.trip
-    }, [latest])
+    }, [latest, selectedVehicleId])
 
 
     return (
@@ -33,18 +33,16 @@ const InputChoice = () => {
                     onChange={(e) => setSelectedVehicleId(Number(e.target.value))}
                     className='selection'
                 >
-                    <div className="options">
-                        {options.map((v) => (
-                            <option key={v.vehicleId} value={v.vehicleId}>
-                                <p>
-                                    {v.model}
-                                </p>
-                                <span>
-                                    {isOffline ? "offline" : "online"}
-                                </span>
-                            </option>
-                        ))}
-                    </div>
+                    {options.map((v) => (
+                        <option key={v.vehicleId} value={v.vehicleId}>
+                            <p>
+                                {v.model}
+                            </p>
+                            <span>
+                                {isOffline ? "offline" : "online"}
+                            </span>
+                        </option>
+                    ))}
                 </select>
             </div>
             <div className="trip-container">
