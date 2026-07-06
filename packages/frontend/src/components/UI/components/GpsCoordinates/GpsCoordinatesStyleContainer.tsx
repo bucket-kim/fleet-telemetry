@@ -9,6 +9,7 @@ export const GpsCoordinatesStyleContainer = styled.div`
     flex-direction: column;
     gap: 0.5rem;
     margin-left: 1rem;
+    margin-bottom: 1rem;
     
 .header {
     h1 {
@@ -24,6 +25,7 @@ export const GpsCoordinatesStyleContainer = styled.div`
             border: 1px solid ${t.border};
             padding: 0.4rem 0.8rem;
             background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(1.5px);
             border-radius: 0.5rem;
             font-weight: 600;
         }
@@ -40,6 +42,7 @@ export const GpsCoordinatesStyleContainer = styled.div`
         display: flex;
         p {
             font-size: 0.8rem;
+              padding: 0.2rem 0.4rem;
         }
     }
     }
@@ -55,6 +58,7 @@ export const GpsCoordinatesStyleContainer = styled.div`
         display: flex;
         p {
             font-size: 0.8rem;
+              padding: 0.2rem 0.4rem;
         }
     }
     }

@@ -12,9 +12,10 @@ const LocationMap = () => {
             selectedVehicleId: state.selectedVehicleId
         }
     })
-    const { latest } = useGlobalState((state) => {
+    const { latest, readings } = useGlobalState((state) => {
         return {
-            latest: state.latest[selectedVehicleId]
+            latest: state.latest[selectedVehicleId],
+            readings: state.readings
         }
     })
 
@@ -22,7 +23,7 @@ const LocationMap = () => {
         <LocationMapStyleContainer>
             {latest && (
                 <Fragment>
-                    <MapLocation latest={latest} />
+                    <MapLocation latest={latest} readings={readings} />
                     <GpsCoordinates latest={latest} />
                 </Fragment>
             )}

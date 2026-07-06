@@ -40,6 +40,7 @@ export const InputChoiceStyleContainer = styled.div`
     }
 
      @media screen and (orientation: portrait) and (max-width: 440px) {
+        gap: 0.5rem;
            .input-container{
         gap: 0.5rem;
 
@@ -52,7 +53,7 @@ export const InputChoiceStyleContainer = styled.div`
         }
     }
     .trip-container {
-        line-height: 140%;
+        line-height: 120%;
         p {
             font-size: 0.5rem;
         }
@@ -62,6 +63,7 @@ export const InputChoiceStyleContainer = styled.div`
     }
      }
      @media screen and (orientation: landscape) and (max-width: 932px) {
+        gap: 0.5rem;
            .input-container{
         gap: 0.5rem;
 
@@ -74,7 +76,7 @@ export const InputChoiceStyleContainer = styled.div`
         }
     }
     .trip-container {
-        line-height: 140%;
+        line-height: 120%;
         p {
             font-size: 0.5rem;
         }
