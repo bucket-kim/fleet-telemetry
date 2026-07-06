@@ -1,9 +1,10 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { CAR_COMPONENTS } from './CAR_REGISTRY'
 import { useGlobalState } from '../../../../state/useGlobalState'
-import { getBearing } from '../../../hooks/useAnimation'
-
-
+import { carGPSAnimation, getBearing } from '../../../hooks/useAnimation'
+import Dashlines from '../Dashlines/Dashlines'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 
 const Cars = () => {
 
@@ -22,6 +23,7 @@ const Cars = () => {
     })
 
     const prevPosition = useRef<{ lat: number, lng: number } | null>(null)
+    const dashlineRef = useRef<THREE.Group>(null)
 
     useEffect(() => {
         if (!latest) return;
@@ -41,11 +43,20 @@ const Cars = () => {
         prevPosition.current = current;
     }, [latest]);
 
+    useFrame((_, delta) => {
+        if (!dashlineRef.current) return;
+        carGPSAnimation(dashlineRef, bearing, delta)
+    })
+
     const CarModel = CAR_COMPONENTS[selectedVehicleId]
 
     return (
         <Fragment>
             {CarModel && <CarModel latest={latest} bearing={bearing} />}
+            <group position={[0, -1.1, 0]} ref={dashlineRef}>
+                <Dashlines position={[-1.5, 0, 0]} />
+                <Dashlines position={[1.5, 0, 0]} />
+            </group>
         </Fragment>
     )
 }

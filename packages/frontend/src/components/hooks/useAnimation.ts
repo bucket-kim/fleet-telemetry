@@ -24,16 +24,16 @@ export const tireRotationAnimation = (
 };
 
 export const carGPSAnimation = (
-  carRef: RefObject<THREE.Group | null>,
+  groupRef: RefObject<THREE.Group | null>,
   bearing: number,
   delta: number,
 ) => {
-  if (!carRef.current) return;
-  const current = carRef.current.rotation.y;
+  if (!groupRef.current) return;
+  const current = groupRef.current.rotation.y;
   let diff = bearing - current;
   diff = Math.atan2(Math.sin(diff), Math.cos(diff));
   const target = current + diff;
-  carRef.current.rotation.y = THREE.MathUtils.damp(
+  groupRef.current.rotation.y = THREE.MathUtils.damp(
     current,
     target,
     1,
