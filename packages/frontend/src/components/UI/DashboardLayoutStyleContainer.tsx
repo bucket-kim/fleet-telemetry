@@ -12,48 +12,59 @@ export const DashboardLayoutStyleContainer = styled.div`
     box-sizing: border-box;
     padding: 1rem;
     
-    .layout-container {
-        /* border: 1px ${t.border} solid; */
-       box-shadow: ${t.shadow};
-        border-radius: 1rem;
-        background: linear-gradient(180deg, ${t.whiteBG} 0%, rgba(0, 0, 0, 0) 100%);
-        min-height: 0;  
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);  
-        box-sizing: border-box;
+    .main-content {
+        display: flex;
         gap: 1rem;
-        padding: 1rem ;
-        .upper-container{
+        .layout-container {
+            /* border: 1px ${t.border} solid; */
+           box-shadow: ${t.shadow};
+            border-radius: 1rem;
+            background: linear-gradient(180deg, ${t.whiteBG} 0%, rgba(0, 0, 0, 0) 100%);
+            min-height: 0;  
             display: grid;
-            grid-template-columns: 2.025fr 1fr;
-            gap: 0.5rem;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr);  
             box-sizing: border-box;
-            .Three-D {
-                border-radius: 0.5rem;
+            gap: 1rem;
+            padding: 1rem ;
+            .upper-container{
+                display: grid;
+                grid-template-columns: 2.025fr 1fr;
+                gap: 0.5rem;
+                box-sizing: border-box;
+                .Three-D {
+                    border-radius: 0.5rem;
+                }
             }
+       
         }
-   
     }
 
     @media screen and (orientation: portrait) and (max-width: 440px) {
         overflow-y: scroll;
-        .layout-container {
-            padding: 0.5rem;
-            padding-top: 0rem;
-                .upper-container{
-                       grid-template-columns: none;
-                       grid-template-rows: 1fr 1fr;
-                }
+        .main-content {
+            gap: .5rem;
+
+            .layout-container {
+                padding: 0.5rem;
+                padding-top: 0rem;
+                    .upper-container{
+                           grid-template-columns: none;
+                           grid-template-rows: 1fr 1fr;
+                    }
+            }
         }
     }
 
     @media screen and (orientation: landscape) and (max-width: 940px) {
         height: calc(100dvh);
         padding: 0.5rem;
-       .layout-container{
-            gap: .25rem;
-            padding: .5rem;
-       }
+          .main-content {
+                    gap: .5rem;
+              .layout-container{
+                   gap: .25rem;
+                   padding: .5rem;
+              }
+          }
     }
 `

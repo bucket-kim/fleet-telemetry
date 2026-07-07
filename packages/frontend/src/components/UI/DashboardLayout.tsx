@@ -16,6 +16,7 @@ import SpeedChart from './components/SpeedChart/SpeedChart'
 import { isMobile, useMobileOrientation } from 'react-device-detect'
 import { Fragment } from 'react/jsx-runtime'
 import InputChoice from './components/InputChoice/InputChoice'
+import Panel from './components/Panel/Panel'
 
 const DashboardLayout = () => {
 
@@ -56,26 +57,29 @@ const DashboardLayout = () => {
             <Notifications />
             {/* main content containers */}
             <Header />
-            <div className="layout-container">
-                <div className='upper-container'>
-                    <InputChoice />
-                    <R3F />
-                    <LocationMap />
+            <div className="main-content">
+                <Panel />
+                <div className="layout-container">
+                    <div className='upper-container'>
+                        <InputChoice />
+                        <R3F />
+                        <LocationMap />
+                    </div>
+                    {isMobile && isPortrait ? (
+                        <Fragment>
+                            <SpeedChart readings={readings} />
+                            <Metrics />
+                        </Fragment>
+                    ) : (
+                        <Fragment>
+
+                            <Metrics />
+                            <SpeedChart readings={readings} />
+                        </Fragment>
+
+                    )}
+
                 </div>
-                {isMobile && isPortrait ? (
-                    <Fragment>
-                        <SpeedChart readings={readings} />
-                        <Metrics />
-                    </Fragment>
-                ) : (
-                    <Fragment>
-
-                        <Metrics />
-                        <SpeedChart readings={readings} />
-                    </Fragment>
-
-                )}
-
             </div>
         </DashboardLayoutStyleContainer>
     )

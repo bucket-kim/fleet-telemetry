@@ -1,8 +1,11 @@
 import type { TelemetryReading } from "@fleet/shared";
 import type { GlobalStateApiType } from "../../GlobalStateTypes";
 import type { signalType, VehicleInfoType } from "./DataModuleTypes";
+import useGetAlert from "../../../components/hooks/useGetAlert";
 
 export const DataModule = ({ set }: GlobalStateApiType) => {
+  const getAlert = useGetAlert();
+
   return {
     selectedVehicleId: 10,
     setSelectedVehicleId: (id: number) => {
@@ -16,9 +19,24 @@ export const DataModule = ({ set }: GlobalStateApiType) => {
 
     latest: {},
     setLatest: (reading: TelemetryReading) => {
-      set((state) => ({
-        latest: { ...state.latest, [reading.vehicleId]: reading },
-      }));
+      set((state) => {
+        {
+          const latest = { ...state.latest, [reading.vehicleId]: reading };
+          const readings = Object.values(latest);
+          return {
+            latest: { ...state.latest, [reading.vehicleId]: reading },
+            fleetSummary: {
+              onlineCount: readings.length,
+              avgSpeed:
+                readings.reduce((sum, r) => sum + r.speed, 0) / readings.length,
+              activeAlerts: readings.reduce(
+                (sum, r) => sum + getAlert(r).length,
+                0,
+              ),
+            },
+          };
+        }
+      });
     },
 
     vehicleInfo: null,
@@ -39,6 +57,12 @@ export const DataModule = ({ set }: GlobalStateApiType) => {
     signal: "speed" as signalType,
     setSignal: (signal: signalType) => {
       set({ signal: signal });
+    },
+
+    fleetSummary: {
+      onlineCount: 0,
+      avgSpeed: 0,
+      activeAlerts: 0,
     },
   };
 };

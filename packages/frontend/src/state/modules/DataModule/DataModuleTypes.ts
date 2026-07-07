@@ -8,6 +8,12 @@ export interface VehicleInfoType {
 
 export type signalType = "speed" | "socPercent" | "kw" | "rpm";
 
+export type fleetSummaryType = {
+  onlineCount: number;
+  avgSpeed: number;
+  activeAlerts: number;
+};
+
 export interface DataModuletypes {
   selectedVehicleId: number;
   setSelectedVehicleId: (id: number) => void;
@@ -29,4 +35,8 @@ export interface DataModuletypes {
 
   signal: signalType;
   setSignal: (signal: signalType) => void;
+
+  fleetSummary: fleetSummaryType;
+
+  getFleetSummary: () => void;
 }

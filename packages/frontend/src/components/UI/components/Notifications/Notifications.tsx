@@ -1,9 +1,10 @@
 
-import type { Alert, TelemetryReading } from '@fleet/shared';
+import type { Alert } from '@fleet/shared';
 import { useGlobalState } from '../../../../state/useGlobalState'
 import { NotificationStyleContainer } from './NotificationStyleContainer'
 import { Fragment, useEffect, useRef, useState } from 'react';
 import ToastItem from './Toast/ToastItem';
+import useGetAlert from '../../../hooks/useGetAlert';
 
 const Notifications = () => {
 
@@ -16,44 +17,13 @@ const Notifications = () => {
         return { latest: state.latest[selectedVehicleId] }
     })
 
+    const getAlert = useGetAlert();
+
     const notificationRef = useRef<HTMLDivElement>(null);
     const prevAlertIds = useRef<Set<string>>(new Set())
     const [toasts, setToasts] = useState<Alert[]>([])
 
-    const getAlert = (latest: TelemetryReading | null): Alert[] => {
-        if (!latest) return [];
 
-        const alerts: Alert[] = [];
-
-        // SoC Low
-        if (latest.socPercent != null && latest.socPercent < 20) {
-            alerts.push({
-                id: "low-soc",
-                severity: "critical",
-                message: "Low Battery"
-            })
-        }
-
-        // Overspeed
-        if (latest.speed > 120) {
-            alerts.push({
-                id: "overspeed",
-                severity: "warning",
-                message: "Speed exceeds limit"
-            })
-        }
-
-        // high power draw
-        if (latest.kw != null && latest.kw < -35) {
-            alerts.push({
-                id: "high-regen",
-                severity: "warning",
-                message: "Hard regenerative braking"
-            })
-        }
-
-        return alerts
-    }
 
     useEffect(() => {
         const currentAlerts = getAlert(latest)

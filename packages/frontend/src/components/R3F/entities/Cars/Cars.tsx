@@ -54,8 +54,8 @@ const Cars = () => {
         <Fragment>
             {CarModel && <CarModel latest={latest} bearing={bearing} />}
             <group position={[0, -1.1, 0]} ref={dashlineRef}>
-                <Dashlines position={[-1.5, 0, 0]} />
-                <Dashlines position={[1.5, 0, 0]} />
+                <Dashlines position={[-2, 0, 0]} />
+                <Dashlines position={[2, 0, 0]} />
             </group>
         </Fragment>
     )
