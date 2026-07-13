@@ -11,6 +11,9 @@
     },
     "dependencies": {
         "@azure/cosmos": "^4.9.3",
+        "@azure/event-hubs": "^6.0.4",
+        "@azure/eventhubs-checkpointstore-blob": "^2.0.0",
+        "@azure/storage-blob": "^12.33.0",
         "@fleet/shared": "*",
         "cors": "^2.8.6",
         "dotenv": "^17.4.2",

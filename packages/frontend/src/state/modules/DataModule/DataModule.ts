@@ -1,11 +1,8 @@
-import type { TelemetryReading } from "@fleet/shared";
+import { getAlert, type TelemetryReading } from "@fleet/shared";
 import type { GlobalStateApiType } from "../../GlobalStateTypes";
 import type { signalType, VehicleInfoType } from "./DataModuleTypes";
-import useGetAlert from "../../../components/hooks/useGetAlert";
 
 export const DataModule = ({ set }: GlobalStateApiType) => {
-  const getAlert = useGetAlert();
-
   return {
     selectedVehicleId: 10,
     setSelectedVehicleId: (id: number) => {

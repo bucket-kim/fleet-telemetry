@@ -29,6 +29,18 @@ export type Alert = {
   message: string;
 };
 
+export type AlertRecord = {
+  id: string;
+  vehicleId: number;
+  trip: number;
+  timestamp: number;
+  alertId: string;
+  severity: "warning" | "critical";
+  message: string;
+};
+
+export type ClientMessage = { type: "setSubscriptions"; vehicleIds: number[] };
+
 export type GLTFResult = GLTF & {
   nodes: {
     Cube002: THREE.Mesh;

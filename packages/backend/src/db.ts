@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { Container, CosmosClient } from "@azure/cosmos";
-import { TelemetryReading } from "@fleet/shared";
+import { AlertRecord, TelemetryReading } from "@fleet/shared";
 
 const client = new CosmosClient({
   endpoint: process.env.COSMOS_ENDPOINT!,
@@ -8,6 +8,7 @@ const client = new CosmosClient({
 });
 
 let container: Container;
+let alertContainer: Container;
 
 export const initCosmos = async () => {
   const { database } = await client.databases.createIfNotExists({
@@ -20,12 +21,23 @@ export const initCosmos = async () => {
   });
 
   container = result.container;
+
+  const { container: alerts } = await database.containers.createIfNotExists({
+    id: "alerts",
+    partitionKey: { paths: ["/vehicleId"] },
+  });
+
+  alertContainer = alerts;
 };
 
 export const saveReadings = async (reading: TelemetryReading) => {
   const resourceId = `${reading.vehicleId}-${reading.dayNum}-${reading.trip}-${reading.timestamp}`;
 
   await container.items.upsert({ ...reading, id: resourceId });
+};
+
+export const saveAlert = async (alert: AlertRecord) => {
+  await alertContainer.items.upsert(alert);
 };
 
 export const getReadings = async (

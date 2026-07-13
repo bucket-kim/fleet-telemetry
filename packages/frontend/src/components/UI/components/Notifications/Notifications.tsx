@@ -1,10 +1,9 @@
 
-import type { Alert } from '@fleet/shared';
+import { getAlert, type Alert } from '@fleet/shared';
 import { useGlobalState } from '../../../../state/useGlobalState'
 import { NotificationStyleContainer } from './NotificationStyleContainer'
 import { Fragment, useEffect, useRef, useState } from 'react';
 import ToastItem from './Toast/ToastItem';
-import useGetAlert from '../../../hooks/useGetAlert';
 
 const Notifications = () => {
 
@@ -16,8 +15,6 @@ const Notifications = () => {
     const { latest } = useGlobalState((state) => {
         return { latest: state.latest[selectedVehicleId] }
     })
-
-    const getAlert = useGetAlert();
 
     const notificationRef = useRef<HTMLDivElement>(null);
     const prevAlertIds = useRef<Set<string>>(new Set())

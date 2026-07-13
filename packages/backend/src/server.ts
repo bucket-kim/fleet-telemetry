@@ -1,10 +1,16 @@
 import express from "express";
 import { createServer } from "http";
 import WebSocket, { WebSocketServer } from "ws";
-import { TelemetryReading } from "@fleet/shared";
+import { ClientMessage, TelemetryReading } from "@fleet/shared";
 import { VEHICLE_INFO } from "../../shared/src/vehicleInfo";
-import { getReadings, initCosmos, saveReadings } from "./db";
+import { getReadings, initCosmos } from "./db";
 import cors from "cors";
+import {
+  initEventHub,
+  sendReading,
+  startAnalyticsConsumer,
+  startConsumer,
+} from "./eventhub";
 
 process.on("unhandledRejection", (reason) => {
   console.error("Unhandled rejection (caught, not crashing):", reason);
@@ -14,6 +20,7 @@ process.on("uncaughtException", (err) => {
   console.error("Uncaught exception (caught, not crashing):", err);
 });
 
+const USE_EVENT_HUBS = process.env.USE_EVENT_HUBS === "true";
 // start app with express
 
 const app = express();
@@ -21,6 +28,8 @@ const app = express();
 app.use(cors());
 
 const server = createServer(app);
+
+const subscriptions = new Map<WebSocket, Set<number>>();
 
 app.get("/readings/:vehicleId", async (req, res) => {
   const vehicleId = Number(req.params.vehicleId);
@@ -52,7 +61,14 @@ const wss = new WebSocketServer({ server });
 wss.on("connection", (ws) => {
   console.log("Client connected");
 
-  //   ws.send("Hello from the server!");
+  subscriptions.set(ws, new Set());
+
+  ws.on("message", (raw) => {
+    const msg = JSON.parse(raw.toString()) as ClientMessage;
+    if (msg.type === "setSubscriptions") {
+      subscriptions.set(ws, new Set(msg.vehicleIds));
+    }
+  });
 
   ws.on("close", () => {
     console.log("Client disconnected");
@@ -67,6 +83,14 @@ const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
+const broadcast = (reading: TelemetryReading) => {
+  for (const [ws, vehicleIds] of subscriptions) {
+    if (ws.readyState === WebSocket.OPEN && vehicleIds.has(reading.vehicleId)) {
+      ws.send(JSON.stringify(reading));
+    }
+  }
+};
+
 const replay = async (readings: TelemetryReading[]) => {
   if (readings.length === 0) return;
 
@@ -78,7 +102,17 @@ const replay = async (readings: TelemetryReading[]) => {
       const pause =
         i === 0 ? 0 : readings[i].timestamp - readings[i - 1].timestamp;
       await sleep(pause);
-
+      if (USE_EVENT_HUBS) {
+        await sendReading(readings[i]);
+      } else {
+        broadcast(readings[i]);
+        // wss.clients.forEach((client) => {
+        //   if (client.readyState === WebSocket.OPEN) {
+        //     client.send(JSON.stringify(readings[i]));
+        //   }
+        // });
+      }
+      // await sendReading(readings[i]);
       // if (!firstLapDone) {
       //   saveReadings(readings[i]).catch((err) => {
       //     console.error(
@@ -89,11 +123,12 @@ const replay = async (readings: TelemetryReading[]) => {
       //   });
       // }
 
-      wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify(readings[i]));
-        }
-      });
+      // wss.clients.forEach((client) => {
+      //   if (client.readyState === WebSocket.OPEN) {
+      //     client.send(JSON.stringify(readings[i]));
+
+      //   }
+      // });
 
       i++;
     }
@@ -107,22 +142,25 @@ const startServer = async () => {
 
   const vehicleIDs = Object.keys(VEHICLE_INFO).map(Number);
 
+  if (USE_EVENT_HUBS) {
+    await initEventHub();
+    startConsumer(wss);
+    startAnalyticsConsumer();
+  }
+
   for (const vehicleId of vehicleIDs) {
     try {
       const readings = await getReadings(vehicleId);
       if (readings.length === 0) {
-        console.warn(`Vehicle ${vehicleId}: 0 readings loaded — skipping.`);
+        console.warn(`Vehicle ${vehicleId}: 0 readings — skipping.`);
         continue;
       }
       console.log(
         `Vehicle ${vehicleId}: replaying ${readings.length} readings.`,
       );
-      replay(readings);
+      replay(readings); // ← the ONE replay function branches internally
     } catch (err) {
-      console.error(
-        `Vehicle ${vehicleId}: failed to load —`,
-        (err as Error).message,
-      );
+      console.error(`Vehicle ${vehicleId}: failed —`, (err as Error).message);
     }
   }
 };

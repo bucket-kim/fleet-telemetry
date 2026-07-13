@@ -3,15 +3,19 @@ import { useGlobalState } from "../../state/useGlobalState";
 import { WS_URL } from "../../const/variable";
 
 export const useTelemetryStream = () => {
-  const { setLatest, setConnected } = useGlobalState((state) => {
-    return {
-      setLatest: state.setLatest,
-      setConnected: state.setConnected,
-    };
-  });
+  const { setLatest, setConnected, selectedVehicleId } = useGlobalState(
+    (state) => {
+      return {
+        setLatest: state.setLatest,
+        setConnected: state.setConnected,
+        selectedVehicleId: state.selectedVehicleId,
+      };
+    },
+  );
 
   const reconnectAttempt = useRef(0);
   const reconnectTimer = useRef<number | null>(null);
+  const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     let ws: WebSocket;
@@ -20,9 +24,15 @@ export const useTelemetryStream = () => {
 
     const connect = () => {
       ws = new WebSocket(`${WS_URL}`);
-
+      wsRef.current = ws;
       ws.onopen = () => {
         setConnected(true);
+        ws.send(
+          JSON.stringify({
+            type: "setSubscriptions",
+            vehicleIds: [selectedVehicleId],
+          }),
+        );
         reconnectAttempt.current = 0;
       };
 
@@ -51,4 +61,15 @@ export const useTelemetryStream = () => {
       ws.close();
     };
   }, []);
+
+  useEffect(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current?.send(
+        JSON.stringify({
+          type: "setSubscriptions",
+          vehicleIds: [selectedVehicleId],
+        }),
+      );
+    }
+  }, [selectedVehicleId]);
 };
