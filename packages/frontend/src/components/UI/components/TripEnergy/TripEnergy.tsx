@@ -1,20 +1,16 @@
 import { useGlobalState } from "../../../../state/useGlobalState"
-import useMetricsHandler from "../../../hooks/useMetricsHandler"
 import { useTripConfig } from "../Panel/config/TripConfig"
 
 
 const TripEnergy = () => {
 
-    const { readings } = useGlobalState((state) => {
+    const { tripMetrics } = useGlobalState((state) => {
         return {
-            readings: state.readings
+            tripMetrics: state.tripMetrics,
         }
     })
 
-    const metrics = useMetricsHandler(readings);
-
-    const TRIP_CONFIG = useTripConfig(metrics)
-
+    const TRIP_CONFIG = useTripConfig(tripMetrics)
 
     return (
         <div className="trip-energy">

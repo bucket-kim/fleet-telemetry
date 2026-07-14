@@ -11,6 +11,7 @@ import {
   startAnalyticsConsumer,
   startConsumer,
 } from "./eventhub";
+import { computeTripMetrics } from "./computeMetrics";
 
 process.on("unhandledRejection", (reason) => {
   console.error("Unhandled rejection (caught, not crashing):", reason);
@@ -52,6 +53,14 @@ app.get("/vehicle/:vehicleId", async (req, res) => {
   }
 
   res.json(info);
+});
+
+app.get("/metrics/:vehicldId", async (req, res) => {
+  const vehicldId = Number(req.params.vehicldId);
+  const readings = await getReadings(vehicldId);
+  const metrics = computeTripMetrics(readings);
+
+  res.json(metrics);
 });
 
 server.listen(8080, () => console.log("HTTP + WS on :8080"));

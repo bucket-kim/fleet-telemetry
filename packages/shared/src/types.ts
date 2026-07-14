@@ -39,6 +39,16 @@ export type AlertRecord = {
   message: string;
 };
 
+export type TripMetricTypes = {
+  // efficiency: number;
+  distance: number;
+  consumed: number;
+  recovered: number;
+  duration: number;
+  avgSpeed: number;
+  maxSpeed: number;
+};
+
 export type ClientMessage = { type: "setSubscriptions"; vehicleIds: number[] };
 
 export type GLTFResult = GLTF & {

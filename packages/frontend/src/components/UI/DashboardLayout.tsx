@@ -17,6 +17,7 @@ import { isMobile, useMobileOrientation } from 'react-device-detect'
 import { Fragment } from 'react/jsx-runtime'
 import InputChoice from './components/InputChoice/InputChoice'
 import Panel from './components/Panel/Panel'
+import useMetricsStats from '../hooks/useMetricsStats'
 
 const DashboardLayout = () => {
 
@@ -39,6 +40,7 @@ const DashboardLayout = () => {
     useReadingHistory(selectedVehicleId)
     useVehicleInfo(selectedVehicleId)
     useTelemetryStream()
+    useMetricsStats(selectedVehicleId)
 
     const isLoading = !latest;
     const showReconnecting = !connected && latest;

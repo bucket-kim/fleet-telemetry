@@ -1,4 +1,8 @@
-import { getAlert, type TelemetryReading } from "@fleet/shared";
+import {
+  getAlert,
+  type TelemetryReading,
+  type TripMetricTypes,
+} from "@fleet/shared";
 import type { GlobalStateApiType } from "../../GlobalStateTypes";
 import type { signalType, VehicleInfoType } from "./DataModuleTypes";
 
@@ -60,6 +64,18 @@ export const DataModule = ({ set }: GlobalStateApiType) => {
       onlineCount: 0,
       avgSpeed: 0,
       activeAlerts: 0,
+    },
+
+    tripMetrics: {
+      distance: 0,
+      consumed: 0,
+      recovered: 0,
+      duration: 0,
+      avgSpeed: 0,
+      maxSpeed: 0,
+    },
+    setTripMetrics: (tripMetrics: TripMetricTypes) => {
+      set({ tripMetrics: tripMetrics });
     },
   };
 };

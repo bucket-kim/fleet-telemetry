@@ -1,4 +1,4 @@
-import type { TelemetryReading } from "@fleet/shared";
+import type { TelemetryReading, TripMetricTypes } from "@fleet/shared";
 
 export interface VehicleInfoType {
   vehicleId: number;
@@ -12,16 +12,6 @@ export type fleetSummaryType = {
   onlineCount: number;
   avgSpeed: number;
   activeAlerts: number;
-};
-
-export type TripMetrics = {
-  // efficiency: number;
-  distance: number;
-  consumed: string;
-  recovered: string;
-  duration: number;
-  avgSpeed: string;
-  maxSpeed: string;
 };
 
 export interface DataModuletypes {
@@ -47,6 +37,8 @@ export interface DataModuletypes {
   setSignal: (signal: signalType) => void;
 
   fleetSummary: fleetSummaryType;
-
   getFleetSummary: () => void;
+
+  tripMetrics: TripMetricTypes;
+  setTripMetrics: (tripMetrics: TripMetricTypes) => void;
 }

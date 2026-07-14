@@ -1,8 +1,7 @@
-import { VEHICLE_INFO } from "@fleet/shared";
+import { VEHICLE_INFO, type TripMetricTypes } from "@fleet/shared";
 import { useGlobalState } from "../../../../../state/useGlobalState";
-import type { TripMetrics } from "../../../../../state/modules/DataModule/DataModuleTypes";
 
-export const useTripConfig = (metrics: TripMetrics) => {
+export const useTripConfig = (metrics: TripMetricTypes) => {
   const { selectedVehicleId } = useGlobalState((state) => {
     return {
       selectedVehicleId: state.selectedVehicleId,
@@ -23,16 +22,14 @@ export const useTripConfig = (metrics: TripMetrics) => {
     return `${h}:${m}:${sec}`;
   };
 
-  const { consumed, recovered, duration, avgSpeed, maxSpeed } = metrics;
-
   const evOnly = {
     energyUsed: {
-      value: `${consumed} kWh`,
+      value: `${metrics.consumed} kWh`,
       label: "Energy Used",
       img: "/svg/...",
     },
     regen: {
-      value: `${recovered} kWh`,
+      value: `${metrics.recovered} kWh`,
       label: "Regen Recovered",
       img: "/svg/...",
     },
@@ -40,17 +37,17 @@ export const useTripConfig = (metrics: TripMetrics) => {
 
   const base = {
     tripTime: {
-      value: fmtDuration(duration),
+      value: fmtDuration(metrics.duration),
       label: "Trip Time",
       img: "/svg/...",
     },
     avgSpeed: {
-      value: `${avgSpeed} km/h`,
+      value: `${metrics.avgSpeed} km/h`,
       label: "Avg Speed",
       img: "/svg/...",
     },
     maxSpeed: {
-      value: `${maxSpeed} km/h`,
+      value: `${metrics.maxSpeed} km/h`,
       label: "Max Speed",
       img: "/svg/...",
     },
