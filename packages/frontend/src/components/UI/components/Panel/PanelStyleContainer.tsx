@@ -3,6 +3,7 @@ import { t } from "../../../../styles/tokens";
 
 export const PanelStyleContainer = styled.div`
     background-color: ${t.whiteBG};
+    height: 100%;
     width: 6rem;
     box-shadow: ${t.shadow};
     padding: 1rem; 
@@ -13,9 +14,10 @@ export const PanelStyleContainer = styled.div`
     gap: 1.5rem;
 
     h1 {
-         color: ${t.text};
+        color: ${t.text};
         font-size: .75rem;
-         border-bottom: 1px solid black;
+        border-bottom: 1px solid black;
+        letter-spacing: -.05rem;
     }
 
     .panel-button {
@@ -43,32 +45,38 @@ export const PanelStyleContainer = styled.div`
     .trip-energy {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         gap: 1rem;
+        box-sizing: border-box;
+        
         p {
             display: flex;
             flex-direction: column;
             font-size: .7rem;
             line-height: 100%;
             gap: .5rem;
-            font-weight: 600;
+            font-weight: 700;
             padding-bottom: 1rem;
             border-bottom: 1px solid ${t.border};
 
-            :last-child{
-                border-bottom: none;
+          
+            span {
+                font-weight: 400;
+            }
+        }  :last-child{
+                border: none;
                 padding-bottom: 0;
             }
-            span {
-                font-weight: 500;
-            }
-        }
     }
 
       @media screen and (orientation: portrait) and (max-width: 440px) {
             width: 3rem;
             padding: .5rem; 
-            gap: 1rem;
+            gap: .75rem;
             border-radius: .5rem;
+            h1 {
+            font-size: .4rem;
+            }
           .panel-button {
                 height: 3rem;
                 width: 3rem;
@@ -80,13 +88,24 @@ export const PanelStyleContainer = styled.div`
                  font-size: 0.5rem;
             }
          }
+          .trip-energy {
+            gap: .5rem;
+              p {
+                gap:.5rem;
+                padding-bottom: 0.5rem;
+                  font-size: .45rem;
+            }
+          }
       }
 
        @media screen and (orientation: landscape) and (max-width: 940px) {
             width: 3rem;
-              padding: .5rem; 
-                 gap: 1rem;
-                     border-radius: .5rem;
+            padding: .5rem; 
+            gap: .45rem;
+            border-radius: .5rem;
+            h1 {
+            font-size: .4rem;
+            }
           .panel-button {
                 height: 3rem;
                 width: 3rem;
@@ -98,5 +117,13 @@ export const PanelStyleContainer = styled.div`
                  font-size: 0.5rem;
             }
          }
+           .trip-energy {
+            gap: .4rem;
+              p {
+                gap:.4rem;
+                padding-bottom: 0.4rem;
+                  font-size: .45rem;
+            }
+          }
        }
 `
