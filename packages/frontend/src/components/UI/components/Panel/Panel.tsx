@@ -1,33 +1,19 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from "react"
+import { Fragment, useEffect, useRef, useState } from "react"
 import { useGlobalState } from "../../../../state/useGlobalState"
 import { PanelStyleContainer } from "./PanelStyleContainer"
-import { usePanelConfig } from "./config/PanelConfig"
 import PanelWidget from "./PanelWidget/PanelWidget"
+import TripEnergy from "../TripEnergy/TripEnergy"
+import PanelSelection from "./PanelSelection/PanelSelection"
 
 
 const Panel = () => {
-
     const { fleetSummary } = useGlobalState((state) => {
         return {
             fleetSummary: state.fleetSummary
         }
     })
 
-    const [panelValue, setPanelValue] = useState<string | null>(null)
-
-    const PANEL_CONFIG = usePanelConfig(fleetSummary)
-
-    const PanelSection = useMemo(() => {
-        return Object.entries(PANEL_CONFIG).map(([key, value]) => (
-            <Fragment>
-                <button key={key} className="panel-button" onClick={() => setPanelValue(value.value)}>
-                    <img src={value.img} alt="" />
-                    <p>{value.label}</p>
-                </button>
-            </Fragment>
-        )
-        )
-    }, [PANEL_CONFIG])
+    const [panelValue, setPanelValue] = useState<string | number | null>(null)
 
     const PanelRef = useRef<HTMLDivElement>(null);
     const [panelWidth, setPanelWidth] = useState(0);
@@ -41,7 +27,8 @@ const Panel = () => {
     return (
         <Fragment>
             <PanelStyleContainer ref={PanelRef}>
-                {PanelSection}
+                <PanelSelection setPanelValue={setPanelValue} fleetSummary={fleetSummary} />
+                <TripEnergy />
             </PanelStyleContainer>
             {panelValue && (
                 <PanelWidget panelValue={panelValue} handleClick={() => setPanelValue(null)} panelWidth={panelWidth} />

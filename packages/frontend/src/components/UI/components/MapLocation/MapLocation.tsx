@@ -10,9 +10,6 @@ const MAP_STYLES = {
     dark: "mapbox://styles/mapbox/dark-v11",
 } as const;
 
-// Center shown until the first telemetry reading arrives over the WebSocket.
-// `latest` is null on mount/reload, so without this the map (and Marker) would
-// receive undefined coords and mapbox-gl would throw "Invalid LngLat (NaN, NaN)".
 const DEFAULT_CENTER = { latitude: 42.28, longitude: -83.72 };
 
 interface MapLocationProps {

@@ -7,18 +7,23 @@ export const PanelStyleContainer = styled.div`
     box-shadow: ${t.shadow};
     padding: 1rem; 
     border-radius: 1rem;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+
+    h1 {
+         color: ${t.text};
+        font-size: .75rem;
+         border-bottom: 1px solid black;
+    }
 
     .panel-button {
         background: ${t.bg};
         border: ${t.border} 1px solid;
         border-radius: 0.5rem;
         height: 5rem;
-        width: 5rem;
+        width: 6rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -33,13 +38,37 @@ export const PanelStyleContainer = styled.div`
             color: ${t.textMuted};
             font-size: 0.7rem;
         }
+        
+    }
+    .trip-energy {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        p {
+            display: flex;
+            flex-direction: column;
+            font-size: .7rem;
+            line-height: 100%;
+            gap: .5rem;
+            font-weight: 600;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid ${t.border};
+
+            :last-child{
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            span {
+                font-weight: 500;
+            }
+        }
     }
 
       @media screen and (orientation: portrait) and (max-width: 440px) {
-              width: 3rem;
-              padding: .5rem; 
-                 gap: 1rem;
-                     border-radius: .5rem;
+            width: 3rem;
+            padding: .5rem; 
+            gap: 1rem;
+            border-radius: .5rem;
           .panel-button {
                 height: 3rem;
                 width: 3rem;

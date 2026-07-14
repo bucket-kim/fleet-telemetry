@@ -31,6 +31,13 @@ export const GpsCoordinatesStyleContainer = styled.div`
         }
     }
 
+    .distance {
+           p {
+            color: ${t.text};
+            font-weight: 600;
+        }
+    }
+
     @media screen and (orientation: portrait) and (max-width: 440px) {
                gap: 0.1rem;
         .header {
@@ -44,6 +51,12 @@ export const GpsCoordinatesStyleContainer = styled.div`
             font-size: 0.8rem;
               padding: 0.2rem 0.4rem;
         }
+    }
+    .distance {
+        p {
+            font-size: 0.8rem;
+        }
+
     }
     }
 
@@ -60,6 +73,12 @@ export const GpsCoordinatesStyleContainer = styled.div`
             font-size: 0.8rem;
               padding: 0.2rem 0.4rem;
         }
+    }
+       .distance {
+        p {
+            font-size: 0.8rem;
+        }
+
     }
     }
 `

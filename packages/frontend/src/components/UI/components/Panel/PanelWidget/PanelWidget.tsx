@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { PanelWidgetStyleConatainer } from './PanelWidgetStyleConatainer'
 
 interface PanelWidgetProps {
-    panelValue: string;
+    panelValue: string | number;
     handleClick: () => void;
     panelWidth: number;
 }

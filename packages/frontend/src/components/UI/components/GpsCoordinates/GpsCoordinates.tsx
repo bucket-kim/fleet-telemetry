@@ -1,6 +1,7 @@
 import type { TelemetryReading } from '@fleet/shared'
 import { useMemo, type FC } from 'react'
 import { GpsCoordinatesStyleContainer } from './GpsCoordinatesStyleContainer'
+import TripMetrics from '../TripMetrics/TripMetrics'
 
 interface MapLocationProps {
     latest: TelemetryReading
@@ -16,6 +17,8 @@ const GpsCoordinates: FC<MapLocationProps> = ({ latest }) => {
         }
     }, [latest])
 
+
+
     return (
         <GpsCoordinatesStyleContainer>
             <div className="header">
@@ -26,6 +29,7 @@ const GpsCoordinates: FC<MapLocationProps> = ({ latest }) => {
                 <p>x: {(coord.x)?.toFixed(2)}</p>
                 <p>y: {(coord.y)?.toFixed(2)}</p>
             </div>
+            <TripMetrics />
         </GpsCoordinatesStyleContainer>
     )
 }

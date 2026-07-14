@@ -14,6 +14,16 @@ export type fleetSummaryType = {
   activeAlerts: number;
 };
 
+export type TripMetrics = {
+  // efficiency: number;
+  distance: number;
+  consumed: string;
+  recovered: string;
+  duration: number;
+  avgSpeed: string;
+  maxSpeed: string;
+};
+
 export interface DataModuletypes {
   selectedVehicleId: number;
   setSelectedVehicleId: (id: number) => void;

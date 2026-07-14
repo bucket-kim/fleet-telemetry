@@ -11,8 +11,6 @@ const R3F = () => {
             <Canvas
                 camera={{ position: [0, 4, -12], fov: 35 }}
             >
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[5, 5, 5]} intensity={1} />
                 <Light />
                 <OrbitControls enablePan={false} minDistance={10} maxDistance={12} minPolarAngle={Math.PI / 2.75} maxPolarAngle={Math.PI / 2.25} />
                 <Cars />
