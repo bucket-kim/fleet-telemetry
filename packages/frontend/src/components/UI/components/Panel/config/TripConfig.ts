@@ -24,12 +24,12 @@ export const useTripConfig = (metrics: TripMetricTypes) => {
 
   const evOnly = {
     energyUsed: {
-      value: `${metrics.consumed} kWh`,
+      value: `${metrics.consumed.toFixed(1)} kWh`,
       label: "Energy Used",
       img: "/svg/...",
     },
     regen: {
-      value: `${metrics.recovered} kWh`,
+      value: `${metrics.recovered.toFixed(1)} kWh`,
       label: "Regen Recovered",
       img: "/svg/...",
     },
@@ -42,12 +42,12 @@ export const useTripConfig = (metrics: TripMetricTypes) => {
       img: "/svg/...",
     },
     avgSpeed: {
-      value: `${metrics.avgSpeed} km/h`,
+      value: `${metrics.avgSpeed.toFixed(1)} km/h`,
       label: "Avg Speed",
       img: "/svg/...",
     },
     maxSpeed: {
-      value: `${metrics.maxSpeed} km/h`,
+      value: `${metrics.maxSpeed.toFixed(1)} km/h`,
       label: "Max Speed",
       img: "/svg/...",
     },
