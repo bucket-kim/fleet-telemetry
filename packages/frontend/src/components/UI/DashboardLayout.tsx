@@ -18,6 +18,7 @@ import { Fragment } from 'react/jsx-runtime'
 import InputChoice from './components/InputChoice/InputChoice'
 import Panel from './components/Panel/Panel'
 import useMetricsStats from '../hooks/useMetricsStats'
+import { useEffect } from 'react'
 
 const DashboardLayout = () => {
 
@@ -29,11 +30,12 @@ const DashboardLayout = () => {
         }
     })
 
-    const { latest, connected, readings } = useGlobalState((state) => {
+    const { latest, connected, readings, msgRate } = useGlobalState((state) => {
         return {
             latest: state.latest[selectedVehicleId],
             connected: state.connected,
             readings: state.readings,
+            msgRate: state.msgRate,
         }
     })
 
@@ -44,6 +46,10 @@ const DashboardLayout = () => {
 
     const isLoading = !latest;
     const showReconnecting = !connected && latest;
+
+    useEffect(() => {
+        console.log('msgRate', msgRate);
+    }, [msgRate])
 
     return (
         <DashboardLayoutStyleContainer>

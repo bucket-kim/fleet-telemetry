@@ -77,5 +77,10 @@ export const DataModule = ({ set }: GlobalStateApiType) => {
     setTripMetrics: (tripMetrics: TripMetricTypes) => {
       set({ tripMetrics: tripMetrics });
     },
+
+    msgRate: 0,
+    setMsgRate: (msgRate: number) => {
+      set({ msgRate: msgRate });
+    },
   };
 };

@@ -3,17 +3,18 @@ import { useGlobalState } from "../../state/useGlobalState";
 import { WS_URL } from "../../const/variable";
 
 export const useTelemetryStream = () => {
-  const { setLatest, setConnected, selectedVehicleId } = useGlobalState(
-    (state) => {
+  const { setLatest, setConnected, selectedVehicleId, setMsgRate } =
+    useGlobalState((state) => {
       return {
         setLatest: state.setLatest,
         setConnected: state.setConnected,
         selectedVehicleId: state.selectedVehicleId,
+        setMsgRate: state.setMsgRate,
       };
-    },
-  );
+    });
 
   const reconnectAttempt = useRef(0);
+  const msgCount = useRef(0);
   const reconnectTimer = useRef<number | null>(null);
   const wsRef = useRef<WebSocket | null>(null);
 
@@ -38,6 +39,7 @@ export const useTelemetryStream = () => {
 
       ws.onmessage = (event) => {
         const readings = JSON.parse(event.data);
+        msgCount.current += 1;
         setLatest(readings);
       };
 
@@ -60,6 +62,13 @@ export const useTelemetryStream = () => {
       if (reconnectTimer.current) clearTimeout(reconnectTimer.current);
       ws.close();
     };
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setMsgRate(msgCount.current);
+    }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {

@@ -41,4 +41,7 @@ export interface DataModuletypes {
 
   tripMetrics: TripMetricTypes;
   setTripMetrics: (tripMetrics: TripMetricTypes) => void;
+
+  msgRate: number;
+  setMsgRate: (msgRate: number) => void;
 }
