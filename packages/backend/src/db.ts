@@ -7,43 +7,64 @@ const client = new CosmosClient({
   key: process.env.COSMOS_KEY!,
 });
 
-let container: Container;
-let alertContainer: Container;
+type Containers = { readings: Container; alerts: Container };
 
-export const initCosmos = async () => {
-  const { database } = await client.databases.createIfNotExists({
-    id: "fleet",
-  });
+let containers: Containers | null = null;
+let initPromise: Promise<Containers> | null = null;
 
-  const result = await database.containers.createIfNotExists({
-    id: "readings",
-    partitionKey: "/vehicleId",
-  });
+// Lazily create/connect the DB + containers, retrying on failure. If the very
+// first attempt fails (e.g. Cosmos/subscription was temporarily unavailable at
+// boot), the next DB call re-attempts instead of the process being stuck
+// serving 500s until a manual restart.
+const ensureCosmos = async (): Promise<Containers> => {
+  if (containers) return containers;
 
-  container = result.container;
+  if (!initPromise) {
+    initPromise = (async () => {
+      const { database } = await client.databases.createIfNotExists({
+        id: "fleet",
+      });
+      const { container: readings } =
+        await database.containers.createIfNotExists({
+          id: "readings",
+          partitionKey: "/vehicleId",
+        });
+      const { container: alerts } =
+        await database.containers.createIfNotExists({
+          id: "alerts",
+          partitionKey: { paths: ["/vehicleId"] },
+        });
+      return { readings, alerts };
+    })().catch((err) => {
+      initPromise = null; // allow a fresh retry on the next call
+      throw err;
+    });
+  }
 
-  const { container: alerts } = await database.containers.createIfNotExists({
-    id: "alerts",
-    partitionKey: { paths: ["/vehicleId"] },
-  });
-
-  alertContainer = alerts;
+  containers = await initPromise;
+  return containers;
 };
 
-export const saveReadings = async (reading: TelemetryReading) => {
-  const resourceId = `${reading.vehicleId}-${reading.dayNum}-${reading.trip}-${reading.timestamp}`;
+// Kept for server startup; now just warms the connection (and no longer fatal
+// if it fails — the first real DB call will retry).
+export const initCosmos = ensureCosmos;
 
-  await container.items.upsert({ ...reading, id: resourceId });
+export const saveReadings = async (reading: TelemetryReading) => {
+  const { readings } = await ensureCosmos();
+  const resourceId = `${reading.vehicleId}-${reading.dayNum}-${reading.trip}-${reading.timestamp}`;
+  await readings.items.upsert({ ...reading, id: resourceId });
 };
 
 export const saveAlert = async (alert: AlertRecord) => {
-  await alertContainer.items.upsert(alert);
+  const { alerts } = await ensureCosmos();
+  await alerts.items.upsert(alert);
 };
 
 export const getReadings = async (
   vehicleId: number,
 ): Promise<TelemetryReading[]> => {
-  const { resources } = await container.items
+  const { readings } = await ensureCosmos();
+  const { resources } = await readings.items
     .query({
       query:
         "SELECT * FROM c WHERE c.vehicleId = @vehicleId ORDER BY c.timestamp",

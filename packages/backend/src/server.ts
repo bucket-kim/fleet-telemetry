@@ -38,6 +38,7 @@ app.get("/readings/:vehicleId", async (req, res) => {
     const readings = await getReadings(vehicleId);
     res.json(readings);
   } catch (err) {
+    console.error(`/readings/${vehicleId} failed:`, (err as Error).message);
     res.status(500).json({
       error: "Failed to fetch readings",
     });
